@@ -1,8 +1,12 @@
+packages:
+  - '.'
+  - playground
+ignoreWorkspaceRootCheck: true
 onlyBuiltDependencies:
+  - core-js
   - esbuild
   - puppeteer
   - unrs-resolver
-
 publicHoistPattern:
   - '@kitschpatrol/repo-config'
   - '@kitschpatrol/typescript-config'

@@ -87,7 +87,7 @@ export default {
 <summary>webpack</summary>
 
 ```js
-// webpack.config.js
+// The webpack.config.js
 import tldraw from '@kitschpatrol/unplugin-tldraw/webpack'
 
 export default {

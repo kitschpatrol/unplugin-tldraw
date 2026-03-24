@@ -1,6 +1,6 @@
 import type { TldrawToImageOptions } from '@kitschpatrol/tldraw-cli'
-import path from 'node:path'
 import { defu } from 'defu'
+import path from 'node:path'
 
 /**
  * Image conversion options for `.tldr` exports.
