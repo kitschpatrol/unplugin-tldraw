@@ -14,9 +14,6 @@ importers:
       '@types/node':
         specifier: ~22.16.5
         version: 22.16.5
-      '@vitest/browser-playwright':
-        specifier: ^4.1.1
-        version: 4.1.1(playwright@1.58.2)(vite@8.0.2(@types/node@22.16.5)(jiti@2.6.1)(yaml@2.8.3))(vitest@4.1.1)
       defu:
         specifier: ^6.1.4
         version: 6.1.4
@@ -26,9 +23,12 @@ importers:
       p-limit:
         specifier: ^7.3.0
         version: 7.3.0
-      playwright:
-        specifier: ^1.58.2
-        version: 1.58.2
+      pretty-bytes:
+        specifier: ^7.1.0
+        version: 7.1.0
+      pretty-ms:
+        specifier: ^9.3.0
+        version: 9.3.0
       unplugin:
         specifier: ^3.0.0
         version: 3.0.0
@@ -39,15 +39,15 @@ importers:
       '@sxzz/test-utils':
         specifier: ^0.5.15
         version: 0.5.15(rolldown@1.0.0-rc.9)(typescript@5.9.3)(vitest@4.1.1)
+      '@vitest/browser-playwright':
+        specifier: ^4.1.1
+        version: 4.1.1(playwright@1.58.2)(vite@8.0.2(@types/node@22.16.5)(jiti@2.6.1)(yaml@2.8.3))(vitest@4.1.1)
       bumpp:
         specifier: ^11.0.1
         version: 11.0.1
-      pretty-bytes:
-        specifier: ^7.1.0
-        version: 7.1.0
-      pretty-ms:
-        specifier: ^9.3.0
-        version: 9.3.0
+      playwright:
+        specifier: ^1.58.2
+        version: 1.58.2
       tsdown:
         specifier: ^0.21.4
         version: 0.21.4(oxc-resolver@11.19.1)(synckit@0.11.12)(typescript@5.9.3)
@@ -55,7 +55,7 @@ importers:
         specifier: ~5.9.3
         version: 5.9.3
       vitest:
-        specifier: ^4.1.0
+        specifier: ^4.1.1
         version: 4.1.1(@types/node@22.16.5)(@vitest/browser-playwright@4.1.1)(vite@8.0.2(@types/node@22.16.5)(jiti@2.6.1)(yaml@2.8.3))
 
 packages:

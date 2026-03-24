@@ -11,7 +11,7 @@ import { unpluginFactory } from './index'
  * @example
  * ```ts
  * // rollup.config.js
- * import tldraw from 'unplugin-tldraw/rollup'
+ * import tldraw from '@kitschpatrol/unplugin-tldraw/rollup'
  *
  * export default {
  *   plugins: [tldraw()],

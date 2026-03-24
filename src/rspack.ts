@@ -11,7 +11,7 @@ import { unpluginFactory } from './index'
  * @example
  * ```js
  * // rspack.config.js
- * import tldraw from 'unplugin-tldraw/rspack'
+ * import tldraw from '@kitschpatrol/unplugin-tldraw/rspack'
  *
  * export default {
  *   plugins: [tldraw()],

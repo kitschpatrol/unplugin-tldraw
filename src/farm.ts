@@ -11,7 +11,7 @@ import { unpluginFactory } from './index'
  * @example
  * ```ts
  * // farm.config.js
- * import tldraw from 'unplugin-tldraw/farm'
+ * import tldraw from '@kitschpatrol/unplugin-tldraw/farm'
  *
  * export default {
  *   plugins: [tldraw()],

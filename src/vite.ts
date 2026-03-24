@@ -11,7 +11,7 @@ import { unpluginFactory } from './index'
  * @example
  * ```ts
  * // vite.config.ts
- * import tldraw from 'unplugin-tldraw/vite'
+ * import tldraw from '@kitschpatrol/unplugin-tldraw/vite'
  *
  * export default defineConfig({
  *   plugins: [tldraw()],

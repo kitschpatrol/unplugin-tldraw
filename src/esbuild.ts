@@ -13,7 +13,7 @@ import { unpluginFactory } from './index'
  * @example
  * ```ts
  * import { build } from 'esbuild'
- * import tldraw from 'unplugin-tldraw/esbuild'
+ * import tldraw from '@kitschpatrol/unplugin-tldraw/esbuild'
  *
  * build({ plugins: [tldraw()] })
  * ```

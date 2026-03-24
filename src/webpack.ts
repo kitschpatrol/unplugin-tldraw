@@ -13,7 +13,7 @@ import { unpluginFactory } from './index'
  * @example
  * ```js
  * // webpack.config.js
- * import tldraw from 'unplugin-tldraw/webpack'
+ * import tldraw from '@kitschpatrol/unplugin-tldraw/webpack'
  *
  * export default {
  *   plugins: [tldraw()],
