@@ -1,4 +1,5 @@
 import type { TldrawToImageOptions } from '@kitschpatrol/tldraw-cli'
+import path from 'node:path'
 import { defu } from 'defu'
 
 /**
@@ -81,7 +82,10 @@ export const DEFAULT_OPTIONS: ResolvedOptions = {
  */
 export function resolveOptions(options?: Options): ResolvedOptions {
 	// eslint-disable-next-line ts/no-unsafe-type-assertion -- defu returns a deep merge but loses the narrowed type
-	return defu(options, DEFAULT_OPTIONS) as ResolvedOptions
+	const resolved = defu(options, DEFAULT_OPTIONS) as ResolvedOptions
+	// Resolve cacheDirectory to absolute to prevent breakage when cwd changes during build
+	resolved.cacheDirectory = path.resolve(resolved.cacheDirectory)
+	return resolved
 }
 
 /**

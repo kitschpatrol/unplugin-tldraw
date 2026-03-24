@@ -202,10 +202,19 @@ export class TldrawExport {
 
 		await fs.mkdir(this.options.cacheDirectory, { recursive: true })
 
+		// Use a unique temp directory per conversion to avoid filename collisions
+		// when multiple concurrent conversions of the same .tldr file (e.g. light + dark)
+		// would otherwise produce the same output filename from tldraw-cli.
+		const tempOutputDirectory = path.join(
+			this.options.cacheDirectory,
+			`.tmp-${crypto.randomUUID()}`,
+		)
+		await fs.mkdir(tempOutputDirectory, { recursive: true })
+
 		// Build tldraw-cli options
 		const tldrawCliOptions: TldrawToImageOptions = {
 			format,
-			output: this.options.cacheDirectory,
+			output: tempOutputDirectory,
 			stripStyle: mergedImageOptions.stripStyle,
 			transparent: mergedImageOptions.transparent,
 		}
@@ -230,16 +239,19 @@ export class TldrawExport {
 			tldrawCliOptions.pages = [page]
 		}
 
-		const outputFiles = await tldrawToImage(absolutePath, tldrawCliOptions)
-		const outputFile = outputFiles[0]
+		try {
+			const outputFiles = await tldrawToImage(absolutePath, tldrawCliOptions)
+			const outputFile = outputFiles[0]
 
-		if (!outputFile) {
-			throw new Error(`tldraw-cli produced no output for "${absolutePath}"`)
-		}
+			if (!outputFile) {
+				throw new Error(`tldraw-cli produced no output for "${absolutePath}"`)
+			}
 
-		// Rename to include our content hash (tldraw-cli uses source filename)
-		if (outputFile !== cachedFilePath) {
+			// Move to final cache location with content hash in filename
 			await fs.rename(outputFile, cachedFilePath)
+		} finally {
+			// Clean up temp directory
+			await fs.rm(tempOutputDirectory, { force: true, recursive: true })
 		}
 
 		if (this.options.pruneCacheOnBuild) {
