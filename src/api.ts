@@ -1,2 +1,2 @@
-// eslint-disable-next-line unicorn/require-module-specifiers
-export {}
+export { resolveOptions } from './core/options'
+export { TldrawExport } from './core/tldraw'

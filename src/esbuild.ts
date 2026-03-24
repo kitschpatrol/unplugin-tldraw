@@ -3,20 +3,19 @@
  * @module
  */
 
-import { starter } from './index'
+import { createEsbuildPlugin } from 'unplugin'
+import { unpluginFactory } from './index'
 
 // @case-police-ignore esbuild
 
 /**
- * Esbuild plugin
+ * esbuild plugin
  * @example
  * ```ts
  * import { build } from 'esbuild'
- * import starter from 'unplugin-tldraw/esbuild'
- * 
- * build({ plugins: [starter()] })
-```
+ * import tldraw from 'unplugin-tldraw/esbuild'
+ *
+ * build({ plugins: [tldraw()] })
+ * ```
  */
-const { esbuild } = starter
-export default esbuild
-export { esbuild as 'module.exports' }
+export default createEsbuildPlugin(unpluginFactory)

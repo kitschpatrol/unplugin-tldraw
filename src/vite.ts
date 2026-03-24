@@ -3,20 +3,19 @@
  * @module
  */
 
-import { starter } from './index'
+import { createVitePlugin } from 'unplugin'
+import { unpluginFactory } from './index'
 
 /**
  * Vite plugin
  * @example
  * ```ts
  * // vite.config.ts
- * import starter from 'unplugin-tldraw/vite'
+ * import tldraw from 'unplugin-tldraw/vite'
  *
  * export default defineConfig({
- *   plugins: [starter()],
+ *   plugins: [tldraw()],
  * })
  * ```
  */
-const { vite } = starter
-export default vite
-export { vite as 'module.exports' }
+export default createVitePlugin(unpluginFactory)

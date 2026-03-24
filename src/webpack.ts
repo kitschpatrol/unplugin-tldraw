@@ -3,7 +3,8 @@
  * @module
  */
 
-import { starter } from './index'
+import { createWebpackPlugin } from 'unplugin'
+import { unpluginFactory } from './index'
 
 // @case-police-ignore webpack
 
@@ -12,13 +13,11 @@ import { starter } from './index'
  * @example
  * ```js
  * // webpack.config.js
- * import starter from 'unplugin-tldraw/webpack'
+ * import tldraw from 'unplugin-tldraw/webpack'
  *
  * export default {
- *   plugins: [starter()],
+ *   plugins: [tldraw()],
  * }
  * ```
  */
-const { webpack } = starter
-export default webpack
-export { webpack as 'module.exports' }
+export default createWebpackPlugin(unpluginFactory)

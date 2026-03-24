@@ -15,7 +15,7 @@
 
 <!-- short-description -->
 
-**An unplugin project**
+**Unplugin for module-style import of local tldraw .tldr files with automatic conversion to SVG or PNG.**
 
 <!-- /short-description -->
 

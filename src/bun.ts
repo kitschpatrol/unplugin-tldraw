@@ -3,18 +3,18 @@
  * @module
  */
 
-import { starter } from './index'
+import { createUnplugin } from 'unplugin'
+import { unpluginFactory } from './index'
 
 /**
  * Bun plugin
  * @example
  * ```ts
  * // Build with Bun
- * import starter from 'unplugin-tldraw/bun'
+ * import tldraw from 'unplugin-tldraw/bun'
  *
- * Bun.build({ plugins: [starter()] })
+ * Bun.build({ plugins: [tldraw()] })
  * ```
  */
-const { bun } = starter
-export default bun
-export { bun as 'module.exports' }
+const unplugin = createUnplugin(unpluginFactory)
+export default unplugin.raw

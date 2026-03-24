@@ -1,8 +1,10 @@
 {
 	"name": "unplugin-tldraw",
 	"version": "0.0.0",
-	"description": "An unplugin project",
+	"description": "Unplugin for module-style import of local tldraw .tldr files with automatic conversion to SVG or PNG.",
 	"keywords": [
+		"tldraw",
+		"tldr",
 		"unplugin",
 		"vite",
 		"webpack",
@@ -12,7 +14,10 @@
 		"esbuild",
 		"farm",
 		"bun",
-		"transform",
+		"diagram",
+		"drawing",
+		"sketch",
+		"import",
 		"npm-package"
 	],
 	"homepage": "https://github.com/kitschpatrol/unplugin-tldraw",
@@ -34,6 +39,9 @@
 		"./*": "./*",
 		"./api": "./dist/api.js",
 		"./bun": "./dist/bun.js",
+		"./client": {
+			"types": "./dist/client.d.ts"
+		},
 		"./esbuild": "./dist/esbuild.js",
 		"./farm": "./dist/farm.js",
 		"./rolldown": "./dist/rolldown.js",
@@ -63,17 +71,25 @@
 		"fix": "ksc fix",
 		"lint": "ksc lint",
 		"release": "bumpp --commit 'Release: %s' && pnpm run build && NPM_AUTH_TOKEN=$(op read 'op://Personal/npm/token') && pnpm publish",
-		"test": "vitest run"
+		"test": "vitest run",
+		"test:browser": "vitest run --config vitest.browser.config.ts"
 	},
 	"dependencies": {
 		"@kitschpatrol/tldraw-cli": "^5.0.13",
 		"@types/node": "~22.16.5",
+		"defu": "^6.1.4",
+		"lognow": "^0.5.2",
+		"p-limit": "^7.3.0",
+		"pretty-bytes": "^7.1.0",
+		"pretty-ms": "^9.3.0",
 		"unplugin": "^3.0.0"
 	},
 	"devDependencies": {
 		"@kitschpatrol/shared-config": "^6.0.3",
 		"@sxzz/test-utils": "^0.5.15",
+		"@vitest/browser-playwright": "^4.1.1",
 		"bumpp": "^11.0.1",
+		"playwright": "^1.58.2",
 		"tsdown": "^0.21.4",
 		"typescript": "~5.9.3",
 		"vitest": "^4.1.0"

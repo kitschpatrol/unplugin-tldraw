@@ -3,20 +3,19 @@
  * @module
  */
 
-import { starter } from './index'
+import { createRolldownPlugin } from 'unplugin'
+import { unpluginFactory } from './index'
 
 /**
  * Rolldown plugin
  * @example
  * ```ts
  * // rolldown.config.js
- * import starter from 'unplugin-tldraw/rolldown'
+ * import tldraw from 'unplugin-tldraw/rolldown'
  *
  * export default {
- *   plugins: [starter()],
+ *   plugins: [tldraw()],
  * }
  * ```
  */
-const { rolldown } = starter
-export default rolldown
-export { rolldown as 'module.exports' }
+export default createRolldownPlugin(unpluginFactory)

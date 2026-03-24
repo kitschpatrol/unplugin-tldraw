@@ -3,20 +3,19 @@
  * @module
  */
 
-import { starter } from './index'
+import { createFarmPlugin } from 'unplugin'
+import { unpluginFactory } from './index'
 
 /**
  * Farm plugin
  * @example
  * ```ts
  * // farm.config.js
- * import starter from 'unplugin-tldraw/farm'
+ * import tldraw from 'unplugin-tldraw/farm'
  *
  * export default {
- *   plugins: [starter()],
+ *   plugins: [tldraw()],
  * }
  * ```
  */
-const { farm } = starter
-export default farm
-export { farm as 'module.exports' }
+export default createFarmPlugin(unpluginFactory)
