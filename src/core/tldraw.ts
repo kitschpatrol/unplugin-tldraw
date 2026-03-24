@@ -153,7 +153,9 @@ export class TldrawExport {
 
 		const cache: PersistentCache = {}
 		for (const [identifier, result] of this.resolvedCache.entries()) {
-			cache[identifier] = { result }
+			cache[this.toRelativeCacheKey(identifier)] = {
+				result: path.relative(this.options.cacheDirectory, result),
+			}
 		}
 
 		await fs.writeFile(this.cacheFilePath, JSON.stringify(cache, undefined, 2))
@@ -304,9 +306,11 @@ export class TldrawExport {
 			let validEntries = 0
 			let staleEntries = 0
 
-			for (const [identifier, entry] of Object.entries(cache)) {
-				if (await fileExists(entry.result)) {
-					this.resolvedCache.set(identifier, entry.result)
+			for (const [relativeIdentifier, entry] of Object.entries(cache)) {
+				const absoluteIdentifier = this.fromRelativeCacheKey(relativeIdentifier)
+				const absoluteResult = path.resolve(this.options.cacheDirectory, entry.result)
+				if (await fileExists(absoluteResult)) {
+					this.resolvedCache.set(absoluteIdentifier, absoluteResult)
 					validEntries++
 				} else {
 					this.persistentCacheDirty = true
@@ -326,8 +330,30 @@ export class TldrawExport {
 		}
 	}
 
+	private fromRelativeCacheKey(relativeKey: string): string {
+		const queryIndex = relativeKey.indexOf('?')
+		if (queryIndex === -1) {
+			return path.resolve(this.options.cacheDirectory, relativeKey)
+		}
+
+		const relativePath = relativeKey.slice(0, queryIndex)
+		const query = relativeKey.slice(queryIndex)
+		return path.resolve(this.options.cacheDirectory, relativePath) + query
+	}
+
 	private relativePath(absolutePath: string): string {
 		return path.relative(process.cwd(), absolutePath)
+	}
+
+	private toRelativeCacheKey(absoluteKey: string): string {
+		const queryIndex = absoluteKey.indexOf('?')
+		if (queryIndex === -1) {
+			return path.relative(this.options.cacheDirectory, absoluteKey)
+		}
+
+		const absolutePath = absoluteKey.slice(0, queryIndex)
+		const query = absoluteKey.slice(queryIndex)
+		return path.relative(this.options.cacheDirectory, absolutePath) + query
 	}
 }
 
