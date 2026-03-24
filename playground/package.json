@@ -1,5 +1,5 @@
 {
-	"name": "@kitschpatrol/unplugin-tldraw-playgorund",
+	"name": "@kitschpatrol/unplugin-tldraw-playground",
 	"private": true,
 	"description": "Local playground for evaluating Unplugin Tldraw.",
 	"type": "module",

@@ -33,7 +33,8 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = (options) =
 						: cleanId
 
 				const overrides = queryString ? parseImportOverrides(queryString) : undefined
-				return tldrawExport.convert(resolvedPath, overrides)
+				const result = await tldrawExport.convert(resolvedPath, overrides)
+				return tldrawExport.resolveFromCache(result)
 			},
 		},
 		async writeBundle() {

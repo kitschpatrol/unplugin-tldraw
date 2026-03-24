@@ -60,7 +60,7 @@ export class TldrawExport {
 	}
 
 	/**
-	 * Converts a `.tldr` file to an image and returns the absolute path to the result.
+	 * Converts a `.tldr` file to an image and returns the path relative to the cache directory.
 	 * Uses caching, request deduplication, and concurrency limiting.
 	 * @param tldrPath - Absolute or relative path to the `.tldr` file.
 	 * @param overrides - Per-import option overrides (from query params).
@@ -85,7 +85,7 @@ export class TldrawExport {
 						this.pathsSeen.add(cached)
 					}
 
-					return cached
+					return path.relative(this.options.cacheDirectory, cached)
 				}
 
 				// Hash changed, invalidate
@@ -110,7 +110,7 @@ export class TldrawExport {
 			this.resolvedCache.set(cacheKey, result)
 			this.persistentCacheDirty = true
 			await this.savePersistentCache()
-			return result
+			return path.relative(this.options.cacheDirectory, result)
 		} finally {
 			this.pendingRequests.delete(cacheKey)
 		}
@@ -143,6 +143,13 @@ export class TldrawExport {
 				await fs.rm(path.join(this.options.cacheDirectory, destinationFile))
 			}
 		}
+	}
+
+	/**
+	 * Resolve a relative cache path back to an absolute path.
+	 */
+	public resolveFromCache(relativePath: string): string {
+		return path.resolve(this.options.cacheDirectory, relativePath)
 	}
 
 	/**
@@ -268,6 +275,17 @@ export class TldrawExport {
 		return cachedFilePath
 	}
 
+	private fromRelativeCacheKey(relativeKey: string): string {
+		const queryIndex = relativeKey.indexOf('?')
+		if (queryIndex === -1) {
+			return path.resolve(this.options.cacheDirectory, relativeKey)
+		}
+
+		const relativePath = relativeKey.slice(0, queryIndex)
+		const query = relativeKey.slice(queryIndex)
+		return path.resolve(this.options.cacheDirectory, relativePath) + query
+	}
+
 	/**
 	 * Checks if a cached result still matches the source file's content hash.
 	 */
@@ -328,17 +346,6 @@ export class TldrawExport {
 		} catch {
 			// Cache file doesn't exist or is invalid, start fresh
 		}
-	}
-
-	private fromRelativeCacheKey(relativeKey: string): string {
-		const queryIndex = relativeKey.indexOf('?')
-		if (queryIndex === -1) {
-			return path.resolve(this.options.cacheDirectory, relativeKey)
-		}
-
-		const relativePath = relativeKey.slice(0, queryIndex)
-		const query = relativeKey.slice(queryIndex)
-		return path.resolve(this.options.cacheDirectory, relativePath) + query
 	}
 
 	private relativePath(absolutePath: string): string {

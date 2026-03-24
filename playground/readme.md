@@ -2,12 +2,12 @@
 
 <!-- title -->
 
-# @kitschpatrol/unplugin-aphex
+# @kitschpatrol/unplugin-tldraw-playground
 
 <!-- /title -->
 
 <!-- short-description -->
 
-**Unplugin for module-style image imports from your macOS Photos.app library.**
+**Local playground for evaluating Unplugin Tldraw.**
 
 <!-- /short-description -->
