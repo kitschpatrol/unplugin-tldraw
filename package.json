@@ -1,0 +1,85 @@
+{
+	"name": "unplugin-tldraw",
+	"version": "0.0.0",
+	"description": "An unplugin project",
+	"keywords": [
+		"unplugin",
+		"vite",
+		"webpack",
+		"rspack",
+		"rollup",
+		"rolldown",
+		"esbuild",
+		"farm",
+		"bun",
+		"transform",
+		"npm-package"
+	],
+	"homepage": "https://github.com/kitschpatrol/unplugin-tldraw",
+	"bugs": "https://github.com/kitschpatrol/unplugin-tldraw/issues",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kitschpatrol/unplugin-tldraw.git"
+	},
+	"license": "MIT",
+	"author": {
+		"name": "Eric Mika",
+		"email": "eric@ericmika.com",
+		"url": "https://ericmika.com"
+	},
+	"sideEffects": false,
+	"type": "module",
+	"exports": {
+		".": "./dist/index.js",
+		"./*": "./*",
+		"./api": "./dist/api.js",
+		"./bun": "./dist/bun.js",
+		"./esbuild": "./dist/esbuild.js",
+		"./farm": "./dist/farm.js",
+		"./rolldown": "./dist/rolldown.js",
+		"./rollup": "./dist/rollup.js",
+		"./rspack": "./dist/rspack.js",
+		"./vite": "./dist/vite.js",
+		"./webpack": "./dist/webpack.js"
+	},
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"typesVersions": {
+		"*": {
+			"*": [
+				"./dist/*",
+				"./*"
+			]
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsdown",
+		"clean": "git rm -f pnpm-lock.yaml ; git clean -fdX",
+		"dev": "tsdown --watch",
+		"fix": "ksc fix",
+		"lint": "ksc lint",
+		"release": "bumpp --commit 'Release: %s' && pnpm run build && NPM_AUTH_TOKEN=$(op read 'op://Personal/npm/token') && pnpm publish",
+		"test": "vitest run"
+	},
+	"dependencies": {
+		"@kitschpatrol/tldraw-cli": "^5.0.13",
+		"@types/node": "~22.16.5",
+		"unplugin": "^3.0.0"
+	},
+	"devDependencies": {
+		"@kitschpatrol/shared-config": "^6.0.3",
+		"@sxzz/test-utils": "^0.5.15",
+		"bumpp": "^11.0.1",
+		"tsdown": "^0.21.4",
+		"typescript": "~5.9.3",
+		"vitest": "^4.1.0"
+	},
+	"packageManager": "pnpm@10.32.1",
+	"engines": {
+		"node": ">=22.18.0"
+	}
+}
