@@ -20,4 +20,4 @@ node_modules/
 vendor/
 
 # Customizations
-/.claude
+.claude/

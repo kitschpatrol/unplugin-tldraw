@@ -18,13 +18,15 @@ type PersistentCacheEntry = {
 type PersistentCache = Record<string, PersistentCacheEntry>
 
 const CACHE_FILE_NAME = '.tldraw-plugin-cache.json'
+const TLDR_EXTENSION_REGEX = /\.tldr/
+const CACHE_HASH_REGEX = /-([a-f\d]{8})\.[^.]+$/
 
 export class TldrawExport {
 	/**
 	 * Pattern matching `.tldr` file imports. The `resolveId` hook filters on this.
 	 */
 	public get identifierPattern(): RegExp {
-		return /\.tldr/
+		return TLDR_EXTENSION_REGEX
 	}
 
 	// Concurrency limiter for conversions (each spawns a headless browser)
@@ -134,7 +136,9 @@ export class TldrawExport {
 		}
 
 		const destinationFiles = await fs.readdir(this.options.cacheDirectory)
-		const fileNamesToKeep = new Set([...this.pathsSeen].map((filePath) => path.basename(filePath)))
+		const fileNamesToKeep = new Set(
+			Array.from(this.pathsSeen, (filePath) => path.basename(filePath)),
+		)
 
 		for (const destinationFile of destinationFiles) {
 			if (destinationFile === CACHE_FILE_NAME) continue
@@ -298,7 +302,7 @@ export class TldrawExport {
 
 		// Extract the hash from the cached filename: name-HASH.ext
 		const cachedBasename = path.basename(cachedResultPath)
-		const cachedHashMatch = /-([a-f\d]{8})\.[^.]+$/.exec(cachedBasename)
+		const cachedHashMatch = CACHE_HASH_REGEX.exec(cachedBasename)
 		if (!cachedHashMatch?.[1]) return false
 
 		const { frame, page, ...imageOverrides } = overrides ?? {}

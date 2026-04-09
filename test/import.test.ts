@@ -1,3 +1,5 @@
+/* eslint-disable e18e/prefer-static-regex */
+
 import { expect, it } from 'vitest'
 import tldrFile from './assets/test-sketch.tldr'
 

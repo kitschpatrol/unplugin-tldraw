@@ -1,4 +1,3 @@
-/* eslint-disable import/no-duplicates */
 import imageStatic from '../test/assets/test-sketch.tldr'
 import imageStaticDark from '../test/assets/test-sketch.tldr?dark=true&tldr'
 
