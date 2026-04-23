@@ -6,6 +6,7 @@
 
 <!-- badges -->
 
+[![NPM Package @kitschpatrol/unplugin-tldraw](https://img.shields.io/npm/v/@kitschpatrol/unplugin-tldraw.svg)](https://npmjs.com/package/@kitschpatrol/unplugin-tldraw)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/kitschpatrol/unplugin-tldraw/actions/workflows/ci.yml/badge.svg)](https://github.com/kitschpatrol/unplugin-tldraw/actions/workflows/ci.yml)
 
@@ -30,7 +31,9 @@ This allows `.tldr` files to be imported just like regular `.webp`, `.jpeg` etc.
 import diagram from './assets/architecture.tldr'
 
 const body = document.querySelector<HTMLDivElement>('body')
-if (body) body.innerHTML = `<img src="${diagram}" />`
+if (body) {
+  body.innerHTML = `<img src="${diagram}" />`
+}
 ```
 
 The above converts `./assets/architecture.tldr` into `./assets/architecture-{hash}.svg`, caches the output file, and then resolves the import to the generated image path.
@@ -41,7 +44,7 @@ The plugin provides a global configuration object to customize the conversion pr
 import diagramPng from './assets/architecture.tldr?format=png&tldr'
 ```
 
-_For lower-level processing of `.tldr` files in Node projects or via the command line, please see [@kitschpatrol/tldraw-cli](https://github.com/kitschpatrol/tldraw-cli)._
+_For lower-level processing of `.tldr` files in Node projects or via the command line, please see [@kitschpatrol/tldraw-cli](https://github.com/kitschpatrol/tldraw-cli). This package replaces an earlier Vite-only package of the same concept: [@kitschpatrol/vite-plugin-tldraw](https://github.com/kitschpatrol/vite-plugin-tldraw)._
 
 ## Installation
 
@@ -288,13 +291,17 @@ This plugin succeeds [@kitschpatrol/vite-plugin-tldraw](https://github.com/kitsc
 
 ## Maintainers
 
-[@kitschpatrol](https://github.com/kitschpatrol)
+[kitschpatrol](https://github.com/kitschpatrol)
 
 <!-- contributing -->
 
 ## Contributing
 
-[Issues](https://github.com/kitschpatrol/unplugin-tldraw/issues) and pull requests are welcome.
+[Issues](https://github.com/kitschpatrol/unplugin-tldraw/issues) are welcome and appreciated.
+
+Please open an issue to discuss changes before submitting a pull request. Unsolicited PRs (especially AI-generated ones) are unlikely to be merged.
+
+This repository uses [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) (via its `ksc` CLI) for linting and formatting, plus [MDAT](https://github.com/kitschpatrol/mdat) for readme placeholder expansion.
 
 <!-- /contributing -->
 
@@ -302,6 +309,6 @@ This plugin succeeds [@kitschpatrol/vite-plugin-tldraw](https://github.com/kitsc
 
 ## License
 
-[MIT](license.txt) © Eric Mika
+[MIT](license.txt) © [Eric Mika](https://ericmika.com)
 
 <!-- /license -->

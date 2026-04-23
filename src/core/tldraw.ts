@@ -141,7 +141,10 @@ export class TldrawExport {
 		)
 
 		for (const destinationFile of destinationFiles) {
-			if (destinationFile === CACHE_FILE_NAME) continue
+			if (destinationFile === CACHE_FILE_NAME) {
+				continue
+			}
+
 			if (!fileNamesToKeep.has(destinationFile)) {
 				log.debug(`Cleaning up unused image: ${destinationFile}`)
 				await fs.rm(path.join(this.options.cacheDirectory, destinationFile))
@@ -160,7 +163,9 @@ export class TldrawExport {
 	 * Persist the in-memory cache to disk.
 	 */
 	public async savePersistentCache(): Promise<void> {
-		if (!this.persistentCacheDirty) return
+		if (!this.persistentCacheDirty) {
+			return
+		}
 
 		const cache: PersistentCache = {}
 		for (const [identifier, result] of this.resolvedCache.entries()) {
@@ -188,15 +193,29 @@ export class TldrawExport {
 
 		// Compute cache key from file content + merged options + frame/page
 		const optionsForHash: Record<string, unknown> = { ...mergedImageOptions }
-		if (frame !== undefined) optionsForHash.frame = frame
-		if (page !== undefined) optionsForHash.page = page
+		
+		if (frame !== undefined) {
+			optionsForHash.frame = frame
+		}
+
+		if (page !== undefined) {
+			optionsForHash.page = page
+		}
+
 		const contentHash = await computeCacheKey(absolutePath, optionsForHash)
 
 		// Build filename with optional frame/page slugs
 		const sourceFilename = path.basename(absolutePath, '.tldr')
 		const slugParts = [sourceFilename]
-		if (page !== undefined) slugParts.push(slugify(page))
-		if (frame !== undefined) slugParts.push(slugify(frame))
+		
+		if (page !== undefined) {
+			slugParts.push(slugify(page))
+		}
+
+		if (frame !== undefined) {
+			slugParts.push(slugify(frame))
+		}
+
 		slugParts.push(contentHash)
 		const cachedFileName = `${slugParts.join('-')}.${format}`
 		const cachedFilePath = path.join(this.options.cacheDirectory, cachedFileName)
@@ -298,12 +317,16 @@ export class TldrawExport {
 		cachedResultPath: string,
 		overrides?: ImportOverrides,
 	): Promise<boolean> {
-		if (!(await fileExists(cachedResultPath))) return false
+		if (!(await fileExists(cachedResultPath))) {
+			return false
+		}
 
 		// Extract the hash from the cached filename: name-HASH.ext
 		const cachedBasename = path.basename(cachedResultPath)
 		const cachedHashMatch = CACHE_HASH_REGEX.exec(cachedBasename)
-		if (!cachedHashMatch?.[1]) return false
+		if (!cachedHashMatch?.[1]) {
+			return false
+		}
 
 		const { frame, page, ...imageOverrides } = overrides ?? {}
 		// eslint-disable-next-line ts/no-unsafe-type-assertion -- defu deep merge loses narrowed type
@@ -312,8 +335,13 @@ export class TldrawExport {
 			this.options.defaultImageOptions,
 		) as ResolvedOptions['defaultImageOptions']
 		const optionsForHash: Record<string, unknown> = { ...mergedOptions }
-		if (frame !== undefined) optionsForHash.frame = frame
-		if (page !== undefined) optionsForHash.page = page
+		if (frame !== undefined) {
+			optionsForHash.frame = frame
+		}
+		
+		if (page !== undefined) {
+			optionsForHash.page = page
+		}
 
 		const currentHash = await computeCacheKey(sourcePath, optionsForHash)
 		return currentHash === cachedHashMatch[1]

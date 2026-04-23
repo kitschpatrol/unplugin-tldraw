@@ -98,7 +98,9 @@ export function parseImportOverrides(queryString: string): ImportOverrides {
 
 	for (const [key, value] of params.entries()) {
 		// Skip namespace markers like `tldr` or `tldraw`
-		if (key === 'tldr' || key === 'tldraw') continue
+		if (key === 'tldr' || key === 'tldraw') {
+			continue
+		}
 
 		switch (key) {
 			case 'dark':
