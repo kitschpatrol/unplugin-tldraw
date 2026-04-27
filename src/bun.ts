@@ -11,7 +11,7 @@ import { unpluginFactory } from './index'
  * Bun plugin
  *
  * @example
- * 	// Build with Bun
+ * 	// build.ts
  * 	import tldraw from '@kitschpatrol/unplugin-tldraw/bun'
  *
  * 	Bun.build({ plugins: [tldraw()] })

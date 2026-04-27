@@ -72,11 +72,25 @@ export default defineConfig({
 </details>
 
 <details>
-<summary>Rollup / Rolldown</summary>
+<summary>Rollup</summary>
 
 ```ts
 // rollup.config.js
 import tldraw from '@kitschpatrol/unplugin-tldraw/rollup'
+
+export default {
+  plugins: [tldraw()],
+}
+```
+
+</details>
+
+<details>
+<summary>Rolldown</summary>
+
+```ts
+// rolldown.config.js
+import tldraw from '@kitschpatrol/unplugin-tldraw/rolldown'
 
 export default {
   plugins: [tldraw()],
@@ -194,7 +208,7 @@ Cannot find module './assets/test-sketch.tldr' or its corresponding type declara
 
 #### 4. Install VS Code preview extension (Optional)
 
-If you're using VS Code, an extension is available to provide hover-previews for tldr file paths:
+If you're using VS Code, an [extension](https://github.com/kitschpatrol/vscode-tldraw-preview) is available to provide hover-previews for tldr file paths:
 
 Install the extension from the [Marketplace](https://marketplace.visualstudio.com/items?itemName=kitschpatrol.tldr-preview), or run the following in VS Code's command palette:
 
