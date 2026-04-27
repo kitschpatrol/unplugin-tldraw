@@ -139,6 +139,21 @@ export default {
 
 </details>
 
+<details>
+<summary>Bun</summary>
+
+```ts
+// Build.ts
+import tldraw from '@kitschpatrol/unplugin-tldraw/bun'
+
+Bun.build({
+  entrypoints: ['./index.ts'],
+  plugins: [tldraw()],
+})
+```
+
+</details>
+
 ### 3. Configure TypeScript
 
 _Skip this step if you're using plain JavaScript._
