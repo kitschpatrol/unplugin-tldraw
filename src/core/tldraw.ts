@@ -387,8 +387,12 @@ async function fileExists(filePath: string): Promise<boolean> {
 	try {
 		await fs.access(filePath)
 		return true
-	} catch {
-		return false
+	} catch (error) {
+		if (error instanceof Error && 'code' in error && error.code === 'ENOENT') {
+			return false
+		}
+
+		throw error
 	}
 }
 
