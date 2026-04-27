@@ -30,8 +30,9 @@ export default eslintConfig(
 		},
 	},
 	{
-		files: ['readme.md/*.ts'],
+		files: ['readme.md/*.{js,ts}'],
 		rules: {
+			'capitalized-comments': 'off',
 			'import/no-unresolved': 'off',
 			'ts/no-redeclare': 'off',
 			'ts/triple-slash-reference': 'off',

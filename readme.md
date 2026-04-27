@@ -27,7 +27,7 @@ Built on [unplugin](https://unplugin.unjs.io), it works with Vite, webpack, Rspa
 This allows `.tldr` files to be imported just like regular `.webp`, `.jpeg` etc. files in your project:
 
 ```ts
-// Main.ts
+// main.ts
 import diagram from './assets/architecture.tldr'
 
 const body = document.querySelector<HTMLDivElement>('body')
@@ -60,7 +60,7 @@ npm install @kitschpatrol/unplugin-tldraw
 <summary>Vite</summary>
 
 ```ts
-// Vite.config.ts
+// vite.config.ts
 import tldraw from '@kitschpatrol/unplugin-tldraw/vite'
 import { defineConfig } from 'vite'
 
@@ -75,7 +75,7 @@ export default defineConfig({
 <summary>Rollup / Rolldown</summary>
 
 ```ts
-// Rollup.config.js
+// rollup.config.js
 import tldraw from '@kitschpatrol/unplugin-tldraw/rollup'
 
 export default {
@@ -89,7 +89,7 @@ export default {
 <summary>webpack</summary>
 
 ```js
-// The webpack.config.js
+// webpack.config.js
 import tldraw from '@kitschpatrol/unplugin-tldraw/webpack'
 
 export default {
@@ -103,7 +103,7 @@ export default {
 <summary>Rspack</summary>
 
 ```js
-// Rspack.config.js
+// rspack.config.js
 import tldraw from '@kitschpatrol/unplugin-tldraw/rspack'
 
 export default {
@@ -129,7 +129,7 @@ build({ plugins: [tldraw()] })
 <summary>Farm</summary>
 
 ```ts
-// Farm.config.js
+// farm.config.js
 import tldraw from '@kitschpatrol/unplugin-tldraw/farm'
 
 export default {
@@ -143,7 +143,7 @@ export default {
 <summary>Bun</summary>
 
 ```ts
-// Build.ts
+// build.ts
 import tldraw from '@kitschpatrol/unplugin-tldraw/bun'
 
 Bun.build({
@@ -158,7 +158,7 @@ Bun.build({
 <summary>Nuxt</summary>
 
 ```ts
-// Nuxt.config.ts
+// nuxt.config.ts
 export default defineNuxtConfig({
   modules: ['@kitschpatrol/unplugin-tldraw/nuxt'],
 })
@@ -201,7 +201,7 @@ Add it to your project, most likely in an `assets` folder.
 Then simply import the `.tldr` file to get a working asset path:
 
 ```ts
-// Example.ts
+// example.ts
 import diagram from './assets/test-sketch.tldr'
 
 // Logs a path to the generated SVG
@@ -241,7 +241,7 @@ See the sections below for additional conversion options.
 Configure the plugin to always generate PNGs with a transparent background, and to log conversion details:
 
 ```ts
-// Vite.config.ts
+// vite.config.ts
 import tldraw from '@kitschpatrol/unplugin-tldraw/vite'
 import { defineConfig } from 'vite'
 
@@ -280,7 +280,7 @@ In addition to all `TldrawImageOptions`, query parameters also accept additional
 ### Import path query parameter examples
 
 ```ts
-// Example.ts
+// example.ts
 import diagramFrame from './assets/test-sketch-three-frames.tldr?frame=frame-1&tldr'
 import diagramDark from './assets/test-sketch.tldr?dark=true&tldr'
 import diagramPng from './assets/test-sketch.tldr?format=png&tldr'
@@ -312,7 +312,7 @@ Because [`tldraw-cli`](https://github.com/kitschpatrol/tldraw-cli) relies on the
 - **Request deduplication**: If the same `.tldr` file is imported concurrently (e.g. from multiple modules), only one conversion runs and the result is shared.
 - **Concurrency limiting**: At most `maxConcurrentConversions` (default: 2) conversions run in parallel, preventing system overload from too many headless browser instances.
 
-The tldraw project evolves quickly. This plugin is somewhat brittle because tldraw\.com, the tldraw library, the `.tldr` file format, and the underlying CLI export tool must all be in harmonious alignment for exports to work.
+The tldraw project evolves quickly. This plugin is somewhat brittle because the tldraw website, the tldraw library, the `.tldr` file format, and the underlying CLI export tool must all be in harmonious alignment for exports to work.
 
 This plugin succeeds [@kitschpatrol/vite-plugin-tldraw](https://github.com/kitschpatrol/vite-plugin-tldraw), extending support to all major bundlers via [unplugin](https://unplugin.unjs.io).
 
