@@ -1,6 +1,6 @@
 {
 	"name": "@kitschpatrol/unplugin-tldraw",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "Unplugin for module-style import of local tldraw .tldr files with automatic conversion to SVG or PNG.",
 	"keywords": [
 		"tldraw",
