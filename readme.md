@@ -192,6 +192,16 @@ This step should take care of errors like:
 Cannot find module './assets/test-sketch.tldr' or its corresponding type declarations.ts(2307)
 ```
 
+#### 4. Install VS Code preview extension (Optional)
+
+If you're using VS Code, an extension is available to provide hover-previews for tldr file paths:
+
+Install the extension from the [Marketplace](https://marketplace.visualstudio.com/items?itemName=kitschpatrol.tldr-preview), or run the following in VS Code's command palette:
+
+```sh
+ext install kitschpatrol.tldr-preview
+```
+
 ## Usage
 
 Save your tldraw project to a `.tldr` file.
