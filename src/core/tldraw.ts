@@ -18,7 +18,7 @@ type PersistentCacheEntry = {
 type PersistentCache = Record<string, PersistentCacheEntry>
 
 const CACHE_FILE_NAME = '.tldraw-plugin-cache.json'
-const TLDR_EXTENSION_REGEX = /\.tldr/
+const TLDR_EXTENSION_REGEX = /\.tldr(?:\?|$)/
 const CACHE_HASH_REGEX = /-([a-f\d]{8})\.[^.]+$/
 
 export class TldrawExport {
