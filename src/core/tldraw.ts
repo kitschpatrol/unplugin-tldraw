@@ -167,7 +167,7 @@ export class TldrawExport {
 		const cache: PersistentCache = {}
 		for (const [identifier, result] of this.resolvedCache.entries()) {
 			cache[this.toRelativeCacheKey(identifier)] = {
-				result: path.relative(this.options.cacheDirectory, result),
+				result: toPosixPath(path.relative(this.options.cacheDirectory, result)),
 			}
 		}
 
@@ -284,12 +284,8 @@ export class TldrawExport {
 
 	private fromRelativeCacheKey(relativeKey: string): string {
 		const queryIndex = relativeKey.indexOf('?')
-		if (queryIndex === -1) {
-			return path.resolve(this.options.cacheDirectory, relativeKey)
-		}
-
-		const relativePath = relativeKey.slice(0, queryIndex)
-		const query = relativeKey.slice(queryIndex)
+		const relativePath = queryIndex === -1 ? relativeKey : relativeKey.slice(0, queryIndex)
+		const query = queryIndex === -1 ? '' : relativeKey.slice(queryIndex)
 		return path.resolve(this.options.cacheDirectory, relativePath) + query
 	}
 
@@ -366,13 +362,9 @@ export class TldrawExport {
 
 	private toRelativeCacheKey(absoluteKey: string): string {
 		const queryIndex = absoluteKey.indexOf('?')
-		if (queryIndex === -1) {
-			return path.relative(this.options.cacheDirectory, absoluteKey)
-		}
-
-		const absolutePath = absoluteKey.slice(0, queryIndex)
-		const query = absoluteKey.slice(queryIndex)
-		return path.relative(this.options.cacheDirectory, absolutePath) + query
+		const absolutePath = queryIndex === -1 ? absoluteKey : absoluteKey.slice(0, queryIndex)
+		const query = queryIndex === -1 ? '' : absoluteKey.slice(queryIndex)
+		return toPosixPath(path.relative(this.options.cacheDirectory, absolutePath)) + query
 	}
 }
 
@@ -389,6 +381,14 @@ async function computeCacheKey(
 
 function stableStringify(value: Record<string, unknown>): string {
 	return JSON.stringify(value, Object.keys(value).toSorted())
+}
+
+/**
+ * Convert a native path string to POSIX form. No-op on POSIX. Used when
+ * persisting paths to disk so the cache file is portable across OSes.
+ */
+function toPosixPath(p: string): string {
+	return p.split(path.sep).join('/')
 }
 
 async function fileExists(filePath: string): Promise<boolean> {
