@@ -100,7 +100,8 @@ export class TldrawExport {
 		const pending = this.pendingRequests.get(cacheKey)
 		if (pending !== undefined) {
 			log.debug(`Waiting for in-flight conversion of "${this.relativePath(absolutePath)}"`)
-			return pending
+			const result = await pending
+			return path.relative(this.options.cacheDirectory, result)
 		}
 
 		// Queue the conversion with concurrency limiting

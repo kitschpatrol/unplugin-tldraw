@@ -1,15 +1,22 @@
+import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { DEFAULT_OPTIONS, resolveOptions } from '../src/core/options'
 
 describe('resolveOptions', () => {
 	it('returns defaults when called with no arguments', () => {
 		const result = resolveOptions()
-		expect(result).toStrictEqual(DEFAULT_OPTIONS)
+		expect(result).toStrictEqual({
+			...DEFAULT_OPTIONS,
+			cacheDirectory: path.resolve(DEFAULT_OPTIONS.cacheDirectory),
+		})
 	})
 
 	it('returns defaults when called with empty object', () => {
 		const result = resolveOptions({})
-		expect(result).toStrictEqual(DEFAULT_OPTIONS)
+		expect(result).toStrictEqual({
+			...DEFAULT_OPTIONS,
+			cacheDirectory: path.resolve(DEFAULT_OPTIONS.cacheDirectory),
+		})
 	})
 
 	it('overrides top-level options', () => {
@@ -23,7 +30,7 @@ describe('resolveOptions', () => {
 		expect(result.verbose).toBe(true)
 		// Others remain default
 		expect(result.pruneCacheOnBuild).toBe(false)
-		expect(result.cacheDirectory).toBe(DEFAULT_OPTIONS.cacheDirectory)
+		expect(result.cacheDirectory).toBe(path.resolve(DEFAULT_OPTIONS.cacheDirectory))
 	})
 
 	it('merges defaultImageOptions with defaults', () => {
@@ -45,7 +52,7 @@ describe('resolveOptions', () => {
 			cacheDirectory: undefined,
 			verbose: undefined,
 		})
-		expect(result.cacheDirectory).toBe(DEFAULT_OPTIONS.cacheDirectory)
+		expect(result.cacheDirectory).toBe(path.resolve(DEFAULT_OPTIONS.cacheDirectory))
 		expect(result.verbose).toBe(DEFAULT_OPTIONS.verbose)
 	})
 

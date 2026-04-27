@@ -151,12 +151,12 @@ describe('TldrawExport', () => {
 
 			const result = await exporter.convert(tldrPath)
 
-			expect(result).toBe(path.join(cacheDirectory, expectedFileName))
+			expect(result).toBe(expectedFileName)
 			expect(mockedTldrawToImage).toHaveBeenCalledOnce()
 
 			// Verify the file was renamed to include the hash
 			const exists = await fs
-				.access(result)
+				.access(path.join(cacheDirectory, result))
 				.then(() => true)
 				.catch(() => false)
 			expect(exists).toBe(true)
@@ -208,7 +208,8 @@ describe('TldrawExport', () => {
 
 			// Pre-create the cached file with the correct hash in its name
 			await fs.mkdir(cacheDirectory, { recursive: true })
-			const cachedPath = path.join(cacheDirectory, `test-${expectedHash}.svg`)
+			const cachedFile = `test-${expectedHash}.svg`
+			const cachedPath = path.join(cacheDirectory, cachedFile)
 			await fs.writeFile(cachedPath, '<svg>cached</svg>')
 
 			const exporter = new TldrawExport({ cacheDirectory })
@@ -216,7 +217,7 @@ describe('TldrawExport', () => {
 
 			const result = await exporter.convert(tldrPath)
 
-			expect(result).toBe(cachedPath)
+			expect(result).toBe(cachedFile)
 			// Should NOT call tldrawToImage since disk cache hit
 			expect(mockedTldrawToImage).not.toHaveBeenCalled()
 		})
@@ -311,13 +312,13 @@ describe('TldrawExport', () => {
 			const cacheFilePath = path.join(cacheDirectory, '.tldraw-plugin-cache.json')
 			// eslint-disable-next-line ts/no-unsafe-assignment -- test assertion on parsed JSON
 			const cacheContent = JSON.parse(await fs.readFile(cacheFilePath, 'utf8'))
-			const absoluteTldrPath = path.resolve(tldrPath)
+			const relativeTldrPath = path.relative(cacheDirectory, path.resolve(tldrPath))
 			// eslint-disable-next-line ts/no-unsafe-member-access -- test assertion
-			expect(cacheContent[absoluteTldrPath]).toBeDefined()
+			expect(cacheContent[relativeTldrPath]).toBeDefined()
 			// eslint-disable-next-line ts/no-unsafe-member-access -- test assertion
-			expect(cacheContent[absoluteTldrPath].result).toContain('test-')
+			expect(cacheContent[relativeTldrPath].result).toContain('test-')
 			// eslint-disable-next-line ts/no-unsafe-member-access -- test assertion
-			expect(cacheContent[absoluteTldrPath].result).toContain('.svg')
+			expect(cacheContent[relativeTldrPath].result).toContain('.svg')
 		})
 
 		it('does not write when cache is not dirty', async () => {
