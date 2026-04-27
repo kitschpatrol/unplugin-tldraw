@@ -131,7 +131,10 @@ describe('TldrawExport', () => {
 			const tldrPath = await createTldrFixture(tempDirectory)
 			const content = await fs.readFile(tldrPath, 'utf8')
 			const expectedHash = computeExpectedHash(content, {
+				dark: false,
 				format: 'svg',
+				padding: 32,
+				scale: 1,
 				stripStyle: false,
 				transparent: false,
 			})
@@ -201,7 +204,10 @@ describe('TldrawExport', () => {
 			const tldrPath = await createTldrFixture(tempDirectory)
 			const content = await fs.readFile(tldrPath, 'utf8')
 			const expectedHash = computeExpectedHash(content, {
+				dark: false,
 				format: 'svg',
+				padding: 32,
+				scale: 1,
 				stripStyle: false,
 				transparent: false,
 			})
@@ -262,7 +268,10 @@ describe('TldrawExport', () => {
 			const tldrPath = await createTldrFixture(tempDirectory)
 			const content = await fs.readFile(tldrPath, 'utf8')
 			const expectedHash = computeExpectedHash(content, {
+				dark: false,
 				format: 'svg',
+				padding: 32,
+				scale: 1,
 				stripStyle: false,
 				transparent: false,
 			})

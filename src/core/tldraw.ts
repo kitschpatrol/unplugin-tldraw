@@ -185,11 +185,7 @@ export class TldrawExport {
 
 		// Merge per-import overrides with defaults
 		const { frame, page, ...imageOverrides } = overrides ?? {}
-		// eslint-disable-next-line ts/no-unsafe-type-assertion -- defu deep merge loses narrowed type
-		const mergedImageOptions = defu(
-			imageOverrides,
-			this.options.defaultImageOptions,
-		) as ResolvedOptions['defaultImageOptions']
+		const mergedImageOptions = defu(imageOverrides, this.options.defaultImageOptions)
 		const { format } = mergedImageOptions
 
 		// Compute cache key from file content + merged options + frame/page
@@ -246,22 +242,13 @@ export class TldrawExport {
 
 		// Build tldraw-cli options
 		const tldrawCliOptions: TldrawToImageOptions = {
+			dark: mergedImageOptions.dark,
 			format,
 			output: tempOutputDirectory,
+			padding: mergedImageOptions.padding,
+			scale: mergedImageOptions.scale,
 			stripStyle: mergedImageOptions.stripStyle,
 			transparent: mergedImageOptions.transparent,
-		}
-
-		if (mergedImageOptions.dark !== undefined) {
-			tldrawCliOptions.dark = mergedImageOptions.dark
-		}
-
-		if (mergedImageOptions.padding !== undefined) {
-			tldrawCliOptions.padding = mergedImageOptions.padding
-		}
-
-		if (mergedImageOptions.scale !== undefined) {
-			tldrawCliOptions.scale = mergedImageOptions.scale
 		}
 
 		if (frame !== undefined) {
@@ -330,11 +317,7 @@ export class TldrawExport {
 		}
 
 		const { frame, page, ...imageOverrides } = overrides ?? {}
-		// eslint-disable-next-line ts/no-unsafe-type-assertion -- defu deep merge loses narrowed type
-		const mergedOptions = defu(
-			imageOverrides,
-			this.options.defaultImageOptions,
-		) as ResolvedOptions['defaultImageOptions']
+		const mergedOptions = defu(imageOverrides, this.options.defaultImageOptions)
 		const optionsForHash: Record<string, unknown> = { ...mergedOptions }
 		if (frame !== undefined) {
 			optionsForHash.frame = frame

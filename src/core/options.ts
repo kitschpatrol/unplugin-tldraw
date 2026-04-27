@@ -60,15 +60,17 @@ export type Options = {
 }
 
 export type ResolvedOptions = Required<Options> & {
-	defaultImageOptions: Pick<TldrawImageOptions, 'dark' | 'padding' | 'scale'> &
-		Required<Pick<TldrawImageOptions, 'format' | 'stripStyle' | 'transparent'>>
+	defaultImageOptions: Required<TldrawImageOptions>
 }
 
 export const DEFAULT_OPTIONS: ResolvedOptions = {
 	cacheDirectory: './node_modules/.cache/tldraw',
 	cacheEnabled: true,
 	defaultImageOptions: {
+		dark: false,
 		format: 'svg',
+		padding: 32,
+		scale: 1,
 		stripStyle: false,
 		transparent: false,
 	},
@@ -81,8 +83,7 @@ export const DEFAULT_OPTIONS: ResolvedOptions = {
  * Resolve and normalize user options.
  */
 export function resolveOptions(options?: Options): ResolvedOptions {
-	// eslint-disable-next-line ts/no-unsafe-type-assertion -- defu returns a deep merge but loses the narrowed type
-	const resolved = defu(options, DEFAULT_OPTIONS) as ResolvedOptions
+	const resolved = defu(options, DEFAULT_OPTIONS)
 	// Resolve cacheDirectory to absolute to prevent breakage when cwd changes during build
 	resolved.cacheDirectory = path.resolve(resolved.cacheDirectory)
 	return resolved
