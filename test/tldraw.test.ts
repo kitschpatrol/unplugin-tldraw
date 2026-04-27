@@ -398,6 +398,42 @@ describe('TldrawExport', () => {
 		})
 	})
 
+	describe('error handling', () => {
+		it('throws when tldraw-cli returns no output and cleans up the temp directory', async () => {
+			const { tldrawToImage } = await import('@kitschpatrol/tldraw-cli')
+			const mockedTldrawToImage = vi.mocked(tldrawToImage)
+
+			const tldrPath = await createTldrFixture(tempDirectory)
+
+			mockedTldrawToImage.mockResolvedValue([])
+
+			const exporter = new TldrawExport({ cacheDirectory })
+			await exporter.initialize()
+
+			await expect(exporter.convert(tldrPath)).rejects.toThrow('tldraw-cli produced no output')
+
+			const remaining = await fs.readdir(cacheDirectory)
+			expect(remaining.filter((name) => name.startsWith('.tmp-'))).toStrictEqual([])
+		})
+
+		it('propagates tldraw-cli errors and cleans up the temp directory', async () => {
+			const { tldrawToImage } = await import('@kitschpatrol/tldraw-cli')
+			const mockedTldrawToImage = vi.mocked(tldrawToImage)
+
+			const tldrPath = await createTldrFixture(tempDirectory)
+
+			mockedTldrawToImage.mockRejectedValue(new Error('Browser launch failed'))
+
+			const exporter = new TldrawExport({ cacheDirectory })
+			await exporter.initialize()
+
+			await expect(exporter.convert(tldrPath)).rejects.toThrow('Browser launch failed')
+
+			const remaining = await fs.readdir(cacheDirectory)
+			expect(remaining.filter((name) => name.startsWith('.tmp-'))).toStrictEqual([])
+		})
+	})
+
 	describe('savePersistentCache', () => {
 		it('writes cache to disk after conversion', async () => {
 			const { tldrawToImage } = await import('@kitschpatrol/tldraw-cli')
@@ -443,6 +479,36 @@ describe('TldrawExport', () => {
 				.then(() => true)
 				.catch(() => false)
 			expect(exists).toBe(false)
+		})
+
+		it('reuses cached results across separate instances via the persisted cache', async () => {
+			const { tldrawToImage } = await import('@kitschpatrol/tldraw-cli')
+			const mockedTldrawToImage = vi.mocked(tldrawToImage)
+
+			const tldrPath = await createTldrFixture(tempDirectory)
+
+			mockedTldrawToImage.mockImplementation(async (_inputPath, options) => {
+				const outputDirectory = getOutputDirectory(options)
+				const outputPath = path.join(outputDirectory, 'test.svg')
+				await fs.mkdir(outputDirectory, { recursive: true })
+				await fs.writeFile(outputPath, '<svg/>')
+				return [outputPath]
+			})
+
+			// First instance: convert and persist
+			const first = new TldrawExport({ cacheDirectory })
+			await first.initialize()
+			const resultA = await first.convert(tldrPath)
+			expect(mockedTldrawToImage).toHaveBeenCalledOnce()
+
+			// Second instance: load the persisted cache and convert the same file
+			mockedTldrawToImage.mockClear()
+			const second = new TldrawExport({ cacheDirectory })
+			await second.initialize()
+			const resultB = await second.convert(tldrPath)
+
+			expect(resultB).toBe(resultA)
+			expect(mockedTldrawToImage).not.toHaveBeenCalled()
 		})
 	})
 
