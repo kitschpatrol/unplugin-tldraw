@@ -23,7 +23,8 @@ const CACHE_HASH_REGEX = /-([a-f\d]{8})\.[^.]+$/
 
 export class TldrawExport {
 	/**
-	 * Pattern matching `.tldr` file imports. The `resolveId` hook filters on this.
+	 * Pattern matching `.tldr` file imports. The `resolveId` hook filters on
+	 * this.
 	 */
 	public get identifierPattern(): RegExp {
 		return TLDR_EXTENSION_REGEX
@@ -62,8 +63,10 @@ export class TldrawExport {
 	}
 
 	/**
-	 * Converts a `.tldr` file to an image and returns the absolute path of the cached image.
-	 * Uses caching, request deduplication, and concurrency limiting.
+	 * Converts a `.tldr` file to an image and returns the absolute path of the
+	 * cached image. Uses caching, request deduplication, and concurrency
+	 * limiting.
+	 *
 	 * @param tldrPath - Absolute or relative path to the `.tldr` file.
 	 * @param overrides - Per-import option overrides (from query params).
 	 */
@@ -71,10 +74,11 @@ export class TldrawExport {
 		// Normalize to absolute path for consistent cache keys
 		const absolutePath = path.resolve(tldrPath)
 
-		// Build a unique cache key that includes overrides
+		// Build a unique cache key that includes overrides.
+		// Stable-stringify so reordered query strings hash to the same key.
 		const cacheKey =
 			overrides && Object.keys(overrides).length > 0
-				? `${absolutePath}?${JSON.stringify(overrides)}`
+				? `${absolutePath}?${stableStringify(overrides)}`
 				: absolutePath
 
 		// Check in-memory cache
@@ -379,8 +383,12 @@ async function computeCacheKey(
 	const fileBuffer = await fs.readFile(filePath)
 	const hash = crypto.createHash('sha1')
 	hash.update(fileBuffer)
-	hash.update(JSON.stringify(options))
+	hash.update(stableStringify(options))
 	return hash.digest('hex').slice(0, 8)
+}
+
+function stableStringify(value: Record<string, unknown>): string {
+	return JSON.stringify(value, Object.keys(value).toSorted())
 }
 
 async function fileExists(filePath: string): Promise<boolean> {
@@ -397,8 +405,8 @@ async function fileExists(filePath: string): Promise<boolean> {
 }
 
 /**
- * Simple slugify for frame/page names in filenames.
- * Converts to lowercase, replaces non-alphanumeric with hyphens, trims.
+ * Simple slugify for frame/page names in filenames. Converts to lowercase,
+ * replaces non-alphanumeric with hyphens, trims.
  */
 function slugify(text: string): string {
 	return text

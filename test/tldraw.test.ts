@@ -23,7 +23,7 @@ async function createTldrFixture(directory: string, name = 'test'): Promise<stri
 function computeExpectedHash(content: string, options: Record<string, unknown>): string {
 	const hash = crypto.createHash('sha1')
 	hash.update(content)
-	hash.update(JSON.stringify(options))
+	hash.update(JSON.stringify(options, Object.keys(options).toSorted()))
 	return hash.digest('hex').slice(0, 8)
 }
 
