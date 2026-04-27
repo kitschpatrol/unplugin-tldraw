@@ -32,6 +32,10 @@ function getOutputDirectory(options: unknown): string {
 	return (options as Record<string, unknown>).output as string
 }
 
+const FRAME_FILENAME_REGEX = /^test-my-frame-[a-f\d]{8}\.svg$/
+const PAGE_FILENAME_REGEX = /^test-page-two-[a-f\d]{8}\.svg$/
+const FRAME_PAGE_FILENAME_REGEX = /^test-p1-f1-[a-f\d]{8}\.svg$/
+
 describe('TldrawExport', () => {
 	let tempDirectory: string
 	let cacheDirectory: string
@@ -295,6 +299,102 @@ describe('TldrawExport', () => {
 
 			// Should call tldrawToImage even though cached file exists
 			expect(mockedTldrawToImage).toHaveBeenCalledOnce()
+		})
+	})
+
+	describe('frame and page overrides', () => {
+		it('passes frame to tldraw-cli and includes its slug in the filename', async () => {
+			const { tldrawToImage } = await import('@kitschpatrol/tldraw-cli')
+			const mockedTldrawToImage = vi.mocked(tldrawToImage)
+
+			const tldrPath = await createTldrFixture(tempDirectory)
+
+			mockedTldrawToImage.mockImplementation(async (_inputPath, options) => {
+				const outputDirectory = getOutputDirectory(options)
+				const outputPath = path.join(outputDirectory, 'test.svg')
+				await fs.mkdir(outputDirectory, { recursive: true })
+				await fs.writeFile(outputPath, '<svg/>')
+				return [outputPath]
+			})
+
+			const exporter = new TldrawExport({ cacheDirectory })
+			await exporter.initialize()
+
+			const result = await exporter.convert(tldrPath, { frame: 'My Frame!' })
+
+			expect(path.basename(result)).toMatch(FRAME_FILENAME_REGEX)
+			expect(mockedTldrawToImage.mock.calls[0]?.[1]?.frames).toStrictEqual(['My Frame!'])
+		})
+
+		it('passes page to tldraw-cli and includes its slug in the filename', async () => {
+			const { tldrawToImage } = await import('@kitschpatrol/tldraw-cli')
+			const mockedTldrawToImage = vi.mocked(tldrawToImage)
+
+			const tldrPath = await createTldrFixture(tempDirectory)
+
+			mockedTldrawToImage.mockImplementation(async (_inputPath, options) => {
+				const outputDirectory = getOutputDirectory(options)
+				const outputPath = path.join(outputDirectory, 'test.svg')
+				await fs.mkdir(outputDirectory, { recursive: true })
+				await fs.writeFile(outputPath, '<svg/>')
+				return [outputPath]
+			})
+
+			const exporter = new TldrawExport({ cacheDirectory })
+			await exporter.initialize()
+
+			const result = await exporter.convert(tldrPath, { page: 'Page Two' })
+
+			expect(path.basename(result)).toMatch(PAGE_FILENAME_REGEX)
+			expect(mockedTldrawToImage.mock.calls[0]?.[1]?.pages).toStrictEqual(['Page Two'])
+		})
+
+		it('produces different filenames for different frame values', async () => {
+			const { tldrawToImage } = await import('@kitschpatrol/tldraw-cli')
+			const mockedTldrawToImage = vi.mocked(tldrawToImage)
+
+			const tldrPath = await createTldrFixture(tempDirectory)
+
+			mockedTldrawToImage.mockImplementation(async (_inputPath, options) => {
+				const outputDirectory = getOutputDirectory(options)
+				const outputPath = path.join(outputDirectory, 'test.svg')
+				await fs.mkdir(outputDirectory, { recursive: true })
+				await fs.writeFile(outputPath, '<svg/>')
+				return [outputPath]
+			})
+
+			const exporter = new TldrawExport({ cacheDirectory })
+			await exporter.initialize()
+
+			const resultA = await exporter.convert(tldrPath, { frame: 'Frame A' })
+			const resultB = await exporter.convert(tldrPath, { frame: 'Frame B' })
+
+			expect(resultA).not.toBe(resultB)
+			// Two distinct conversions, not deduplicated
+			expect(mockedTldrawToImage).toHaveBeenCalledTimes(2)
+		})
+
+		it('combines frame and page in the filename when both are set', async () => {
+			const { tldrawToImage } = await import('@kitschpatrol/tldraw-cli')
+			const mockedTldrawToImage = vi.mocked(tldrawToImage)
+
+			const tldrPath = await createTldrFixture(tempDirectory)
+
+			mockedTldrawToImage.mockImplementation(async (_inputPath, options) => {
+				const outputDirectory = getOutputDirectory(options)
+				const outputPath = path.join(outputDirectory, 'test.svg')
+				await fs.mkdir(outputDirectory, { recursive: true })
+				await fs.writeFile(outputPath, '<svg/>')
+				return [outputPath]
+			})
+
+			const exporter = new TldrawExport({ cacheDirectory })
+			await exporter.initialize()
+
+			const result = await exporter.convert(tldrPath, { frame: 'F1', page: 'P1' })
+
+			// Filename order: name-page-frame-hash (per src/core/tldraw.ts)
+			expect(path.basename(result)).toMatch(FRAME_PAGE_FILENAME_REGEX)
 		})
 	})
 
