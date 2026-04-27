@@ -68,7 +68,7 @@ describe('resolveOptions', () => {
 
 	it('overrides cacheDirectory', () => {
 		const result = resolveOptions({ cacheDirectory: '/tmp/my-cache' })
-		expect(result.cacheDirectory).toBe('/tmp/my-cache')
+		expect(result.cacheDirectory).toBe(path.resolve('/tmp/my-cache'))
 	})
 
 	it('has correct default image format', () => {
