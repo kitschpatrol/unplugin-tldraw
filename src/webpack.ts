@@ -1,5 +1,6 @@
 /**
  * This entry file is for webpack plugin.
+ *
  * @module
  */
 
@@ -10,14 +11,13 @@ import { unpluginFactory } from './index'
 
 /**
  * Webpack plugin
- * @example
- * ```js
- * // webpack.config.js
- * import tldraw from '@kitschpatrol/unplugin-tldraw/webpack'
  *
- * export default {
- *   plugins: [tldraw()],
- * }
- * ```
+ * @example
+ * 	// webpack.config.js
+ * 	import tldraw from '@kitschpatrol/unplugin-tldraw/webpack'
+ *
+ * 	export default {
+ * 		plugins: [tldraw()],
+ * 	}
  */
 export default createWebpackPlugin(unpluginFactory)

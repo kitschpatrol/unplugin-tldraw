@@ -1,5 +1,6 @@
 /**
  * This entry file is for esbuild plugin.
+ *
  * @module
  */
 
@@ -9,13 +10,12 @@ import { unpluginFactory } from './index'
 // @case-police-ignore esbuild
 
 /**
- * esbuild plugin
- * @example
- * ```ts
- * import { build } from 'esbuild'
- * import tldraw from '@kitschpatrol/unplugin-tldraw/esbuild'
+ * Esbuild plugin
  *
- * build({ plugins: [tldraw()] })
- * ```
+ * @example
+ * 	import { build } from 'esbuild'
+ * 	import tldraw from '@kitschpatrol/unplugin-tldraw/esbuild'
+ *
+ * 	build({ plugins: [tldraw()] })
  */
 export default createEsbuildPlugin(unpluginFactory)

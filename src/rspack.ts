@@ -1,5 +1,6 @@
 /**
  * This entry file is for Rspack plugin.
+ *
  * @module
  */
 
@@ -8,14 +9,13 @@ import { unpluginFactory } from './index'
 
 /**
  * Rspack plugin
- * @example
- * ```js
- * // rspack.config.js
- * import tldraw from '@kitschpatrol/unplugin-tldraw/rspack'
  *
- * export default {
- *   plugins: [tldraw()],
- * }
- * ```
+ * @example
+ * 	// rspack.config.js
+ * 	import tldraw from '@kitschpatrol/unplugin-tldraw/rspack'
+ *
+ * 	export default {
+ * 		plugins: [tldraw()],
+ * 	}
  */
 export default createRspackPlugin(unpluginFactory)

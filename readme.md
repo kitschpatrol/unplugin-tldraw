@@ -22,7 +22,7 @@
 
 **A universal bundler plugin to automate the import and conversion of local [tldraw](https://tldraw.dev) `.tldr` files into SVG or PNG image assets.**
 
-Built on [unplugin](https://unplugin.unjs.io), it works with Vite, webpack, Rspack, Rollup, Rolldown, esbuild, Farm, and Bun.
+Built on [unplugin](https://unplugin.unjs.io), it works with Vite, webpack, Rspack, Rollup, Rolldown, esbuild, Farm, Bun, and Nuxt.
 
 This allows `.tldr` files to be imported just like regular `.webp`, `.jpeg` etc. files in your project:
 
@@ -149,6 +149,18 @@ import tldraw from '@kitschpatrol/unplugin-tldraw/bun'
 Bun.build({
   entrypoints: ['./index.ts'],
   plugins: [tldraw()],
+})
+```
+
+</details>
+
+<details>
+<summary>Nuxt</summary>
+
+```ts
+// Nuxt.config.ts
+export default defineNuxtConfig({
+  modules: ['@kitschpatrol/unplugin-tldraw/nuxt'],
 })
 ```
 

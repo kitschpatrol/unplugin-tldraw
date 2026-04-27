@@ -6,6 +6,7 @@ export default knipConfig({
 	ignoreDependencies: [
 		'@farmfe/core',
 		'@kitschpatrol/tldraw-cli',
+		'@nuxt/schema',
 		'@sxzz/test-utils',
 		'@vitest/browser-playwright',
 		'esbuild',
