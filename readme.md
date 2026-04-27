@@ -266,6 +266,8 @@ Import directives may include query parameters to set image conversion options o
 
 Query parameters take precedence over `defaultImageOptions` set at plugin instantiation in your bundler config.
 
+Boolean parameters accept `true` or `false` (e.g. `?dark=true`, `?dark=false`). A bare key like `?dark` (with no value) is shorthand for `true`. Any other value is ignored with a warning.
+
 _Note: Due to [constraints in TypeScript's module declaration wildcards](https://github.com/microsoft/TypeScript/issues/38638), the import path must be suffixed with `&tldr` or `&tldraw` when query parameters are used._
 
 ### Additional query parameter options

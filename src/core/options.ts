@@ -1,5 +1,6 @@
 import type { TldrawToImageOptions } from '@kitschpatrol/tldraw-cli'
 import { defu } from 'defu'
+import { log } from 'lognow'
 import path from 'node:path'
 
 /**
@@ -107,7 +108,14 @@ export function parseImportOverrides(queryString: string): ImportOverrides {
 			case 'dark':
 			case 'stripStyle':
 			case 'transparent': {
-				overrides[key] = value === 'true' || value === ''
+				if (value === 'true' || value === '') {
+					overrides[key] = true
+				} else if (value === 'false') {
+					overrides[key] = false
+				} else {
+					log.warn(`Ignoring invalid value for "${key}": "${value}". Expected "true" or "false".`)
+				}
+
 				break
 			}
 
