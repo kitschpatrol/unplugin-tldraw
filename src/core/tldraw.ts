@@ -206,7 +206,7 @@ export class TldrawExport {
 		}
 
 		slugParts.push(contentHash)
-		const cachedFileName = `${slugParts.join('-')}.${format}`
+		const cachedFileName = `${slugParts.filter(Boolean).join('-')}.${format}`
 		const cachedFilePath = path.join(this.options.cacheDirectory, cachedFileName)
 
 		// Check if the cached file already exists on disk (content-addressed)
