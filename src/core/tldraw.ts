@@ -62,7 +62,7 @@ export class TldrawExport {
 	}
 
 	/**
-	 * Converts a `.tldr` file to an image and returns the path relative to the cache directory.
+	 * Converts a `.tldr` file to an image and returns the absolute path of the cached image.
 	 * Uses caching, request deduplication, and concurrency limiting.
 	 * @param tldrPath - Absolute or relative path to the `.tldr` file.
 	 * @param overrides - Per-import option overrides (from query params).
@@ -87,7 +87,7 @@ export class TldrawExport {
 						this.pathsSeen.add(cached)
 					}
 
-					return path.relative(this.options.cacheDirectory, cached)
+					return cached
 				}
 
 				// Hash changed, invalidate
@@ -100,8 +100,7 @@ export class TldrawExport {
 		const pending = this.pendingRequests.get(cacheKey)
 		if (pending !== undefined) {
 			log.debug(`Waiting for in-flight conversion of "${this.relativePath(absolutePath)}"`)
-			const result = await pending
-			return path.relative(this.options.cacheDirectory, result)
+			return pending
 		}
 
 		// Queue the conversion with concurrency limiting
@@ -113,7 +112,7 @@ export class TldrawExport {
 			this.resolvedCache.set(cacheKey, result)
 			this.persistentCacheDirty = true
 			await this.savePersistentCache()
-			return path.relative(this.options.cacheDirectory, result)
+			return result
 		} finally {
 			this.pendingRequests.delete(cacheKey)
 		}
@@ -151,13 +150,6 @@ export class TldrawExport {
 				await fs.rm(path.join(this.options.cacheDirectory, destinationFile))
 			}
 		}
-	}
-
-	/**
-	 * Resolve a relative cache path back to an absolute path.
-	 */
-	public resolveFromCache(relativePath: string): string {
-		return path.resolve(this.options.cacheDirectory, relativePath)
 	}
 
 	/**

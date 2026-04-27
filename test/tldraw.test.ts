@@ -154,12 +154,12 @@ describe('TldrawExport', () => {
 
 			const result = await exporter.convert(tldrPath)
 
-			expect(result).toBe(expectedFileName)
+			expect(path.basename(result)).toBe(expectedFileName)
 			expect(mockedTldrawToImage).toHaveBeenCalledOnce()
 
 			// Verify the file was renamed to include the hash
 			const exists = await fs
-				.access(path.join(cacheDirectory, result))
+				.access(result)
 				.then(() => true)
 				.catch(() => false)
 			expect(exists).toBe(true)
@@ -223,7 +223,7 @@ describe('TldrawExport', () => {
 
 			const result = await exporter.convert(tldrPath)
 
-			expect(result).toBe(cachedFile)
+			expect(path.basename(result)).toBe(cachedFile)
 			// Should NOT call tldrawToImage since disk cache hit
 			expect(mockedTldrawToImage).not.toHaveBeenCalled()
 		})
