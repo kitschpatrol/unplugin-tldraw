@@ -457,7 +457,10 @@ describe('TldrawExport', () => {
 			const cacheFilePath = path.join(cacheDirectory, '.tldraw-plugin-cache.json')
 			// eslint-disable-next-line ts/no-unsafe-assignment -- test assertion on parsed JSON
 			const cacheContent = JSON.parse(await fs.readFile(cacheFilePath, 'utf8'))
-			const relativeTldrPath = path.relative(cacheDirectory, path.resolve(tldrPath))
+			const relativeTldrPath = path
+				.relative(cacheDirectory, path.resolve(tldrPath))
+				.split(path.sep)
+				.join('/')
 			// eslint-disable-next-line ts/no-unsafe-member-access -- test assertion
 			expect(cacheContent[relativeTldrPath]).toBeDefined()
 			// eslint-disable-next-line ts/no-unsafe-member-access -- test assertion
