@@ -289,6 +289,75 @@ The tldraw project evolves quickly. This plugin is somewhat brittle because tldr
 
 This plugin succeeds [@kitschpatrol/vite-plugin-tldraw](https://github.com/kitschpatrol/vite-plugin-tldraw), extending support to all major bundlers via [unplugin](https://unplugin.unjs.io).
 
+## Migrating from `vite-plugin-tldraw`
+
+If you're upgrading from [`@kitschpatrol/vite-plugin-tldraw`](https://github.com/kitschpatrol/vite-plugin-tldraw), the surface area is mostly the same. The notable changes are listed below.
+
+### Package and import path
+
+Replace the dependency:
+
+```sh
+npm uninstall @kitschpatrol/vite-plugin-tldraw
+npm install @kitschpatrol/unplugin-tldraw
+```
+
+Update the bundler config to import from the bundler-specific subpath. For Vite:
+
+_Before_:
+
+```ts
+import tldraw from '@kitschpatrol/vite-plugin-tldraw'
+```
+
+_After_:
+
+```ts
+import tldraw from '@kitschpatrol/unplugin-tldraw/vite'
+```
+
+For other bundlers (webpack, Rollup, Rolldown, esbuild, Rspack, Farm, Bun), see the [Installation](#2-add-the-plugin-to-your-bundler-config) section above for the correct subpath.
+
+### TypeScript client types
+
+Update the types reference in `tsconfig.json` (or your `env.d.ts`):
+
+_Before_:
+
+```jsonc
+{
+  "types": ["@kitschpatrol/vite-plugin-tldraw/client"],
+}
+```
+
+_After_:
+
+```jsonc
+{
+  "types": ["@kitschpatrol/unplugin-tldraw/client"],
+}
+```
+
+### Removed: `returnMetadata`
+
+The `returnMetadata` plugin option is gone. Imports always resolve to a `string` path now, never to a `{ src, width, height, format }` object. If you need image dimensions, read them from the resolved path with [`image-size`](https://www.npmjs.com/package/image-size) or a similar library at runtime.
+
+### New plugin options
+
+Three new keys are available on the [plugin options](#options) object:
+
+- `cacheDirectory` — customize where converted images are stored.
+- `maxConcurrentConversions` — cap the number of headless-browser exports running in parallel (default `2`).
+- `pruneCacheOnBuild` — delete cached files that weren't used during a build.
+
+### Cache location
+
+The cache moved from `node_modules/.vite/tldr/` to `./node_modules/.cache/tldraw/` (configurable via `cacheDirectory`). The old directory is not reused and is safe to delete.
+
+### Unchanged
+
+Import-path query parameters (e.g. `?format=png&tldr`), the `&tldr` / `&tldraw` suffix requirement, the `frame` and `page` selectors, every key on `TldrawImageOptions` (`format`, `dark`, `transparent`, `stripStyle`, `padding`, `scale`), and the underlying [`@kitschpatrol/tldraw-cli`](https://github.com/kitschpatrol/tldraw-cli) conversion engine all behave exactly as before.
+
 ## Maintainers
 
 [kitschpatrol](https://github.com/kitschpatrol)

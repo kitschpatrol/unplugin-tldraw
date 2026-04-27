@@ -33,6 +33,7 @@ export default eslintConfig(
 		files: ['readme.md/*.ts'],
 		rules: {
 			'import/no-unresolved': 'off',
+			'ts/no-redeclare': 'off',
 			'ts/triple-slash-reference': 'off',
 		},
 	},

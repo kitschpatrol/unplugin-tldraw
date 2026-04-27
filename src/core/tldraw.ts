@@ -193,7 +193,7 @@ export class TldrawExport {
 
 		// Compute cache key from file content + merged options + frame/page
 		const optionsForHash: Record<string, unknown> = { ...mergedImageOptions }
-		
+
 		if (frame !== undefined) {
 			optionsForHash.frame = frame
 		}
@@ -207,7 +207,7 @@ export class TldrawExport {
 		// Build filename with optional frame/page slugs
 		const sourceFilename = path.basename(absolutePath, '.tldr')
 		const slugParts = [sourceFilename]
-		
+
 		if (page !== undefined) {
 			slugParts.push(slugify(page))
 		}
@@ -338,7 +338,7 @@ export class TldrawExport {
 		if (frame !== undefined) {
 			optionsForHash.frame = frame
 		}
-		
+
 		if (page !== undefined) {
 			optionsForHash.page = page
 		}
