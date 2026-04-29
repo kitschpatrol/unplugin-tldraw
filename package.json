@@ -90,7 +90,7 @@
 	},
 	"devDependencies": {
 		"@farmfe/core": ">=1.7.11",
-		"@kitschpatrol/shared-config": "^7.5.1",
+		"@kitschpatrol/shared-config": "^7.5.2",
 		"@nuxt/kit": "^4.4.2",
 		"@nuxt/schema": "^4.4.2",
 		"@rspack/core": "^2.0.1",

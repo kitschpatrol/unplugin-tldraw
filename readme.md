@@ -7,7 +7,7 @@
 <!-- badges -->
 
 [![NPM Package @kitschpatrol/unplugin-tldraw](https://img.shields.io/npm/v/@kitschpatrol/unplugin-tldraw.svg)](https://npmjs.com/package/@kitschpatrol/unplugin-tldraw)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit/)
 [![CI](https://github.com/kitschpatrol/unplugin-tldraw/actions/workflows/ci.yml/badge.svg)](https://github.com/kitschpatrol/unplugin-tldraw/actions/workflows/ci.yml)
 
 <!-- /badges -->

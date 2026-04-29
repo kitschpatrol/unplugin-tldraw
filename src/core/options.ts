@@ -4,8 +4,8 @@ import { log } from 'lognow'
 import path from 'node:path'
 
 /**
- * Image conversion options for `.tldr` exports.
- * Subset of `@kitschpatrol/tldraw-cli` options relevant to image output.
+ * Image conversion options for `.tldr` exports. Subset of
+ * `@kitschpatrol/tldraw-cli` options relevant to image output.
  */
 export type TldrawImageOptions = Pick<
 	TldrawToImageOptions,
@@ -25,15 +25,17 @@ export type ImportOverrides = TldrawImageOptions & {
 
 export type Options = {
 	/**
-	 * Directory to store converted images.
-	 * Resolved relative to Vite's `cacheDir` at runtime if not absolute.
+	 * Directory to store converted images. Resolved relative to Vite's `cacheDir`
+	 * at runtime if not absolute.
+	 *
 	 * @default './node_modules/.cache/tldraw'
 	 */
 	cacheDirectory?: string
 	/**
-	 * Enable caching of generated image files.
-	 * Cache keys include a hash of the `.tldr` file content and image options,
-	 * so cached files are automatically invalidated when the source changes.
+	 * Enable caching of generated image files. Cache keys include a hash of the
+	 * `.tldr` file content and image options, so cached files are automatically
+	 * invalidated when the source changes.
+	 *
 	 * @default true
 	 */
 	cacheEnabled?: boolean
@@ -42,19 +44,22 @@ export type Options = {
 	 */
 	defaultImageOptions?: TldrawImageOptions
 	/**
-	 * Maximum number of concurrent `.tldr` conversions.
-	 * Lower values reduce system load (each conversion spawns a headless browser).
+	 * Maximum number of concurrent `.tldr` conversions. Lower values reduce
+	 * system load (each conversion spawns a headless browser).
+	 *
 	 * @default 2
 	 */
 	maxConcurrentConversions?: number
 	/**
-	 * Delete all files in `cacheDirectory` that are not in the converted
-	 * image set at the end of a full build.
+	 * Delete all files in `cacheDirectory` that are not in the converted image
+	 * set at the end of a full build.
+	 *
 	 * @default false
 	 */
 	pruneCacheOnBuild?: boolean
 	/**
 	 * Log conversion details and performance information to the console.
+	 *
 	 * @default false
 	 */
 	verbose?: boolean
@@ -91,8 +96,8 @@ export function resolveOptions(options?: Options): ResolvedOptions {
 }
 
 /**
- * Parse query params from an import path into per-import overrides.
- * Converts string values to appropriate types (booleans, numbers).
+ * Parse query params from an import path into per-import overrides. Converts
+ * string values to appropriate types (booleans, numbers).
  */
 export function parseImportOverrides(queryString: string): ImportOverrides {
 	const params = new URLSearchParams(queryString)
