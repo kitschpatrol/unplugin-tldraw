@@ -74,15 +74,15 @@
 		"fix": "ksc fix",
 		"lint": "ksc lint",
 		"play": "poptab && pnpm -C playground run dev",
-		"release": "bumpp --commit 'Release: %s' && pnpm build && NPM_AUTH_TOKEN=$(op read 'op://Personal/npm/token') && pnpm publish",
+		"release": "bumpp --commit 'Release: %s' && pnpm build && NPM_AUTH_TOKEN=$(op read 'op://Personal/npm/token') pnpm publish",
 		"test": "vitest run",
 		"test:browser": "vitest run --config vitest.browser.config.ts"
 	},
 	"dependencies": {
-		"@kitschpatrol/tldraw-cli": "^5.0.16",
-		"@types/node": "~22.18.13",
+		"@kitschpatrol/tldraw-cli": "^6.0.0",
+		"@types/node": "~22.19.19",
 		"defu": "^6.1.7",
-		"lognow": "^0.6.1",
+		"lognow": "^0.6.2",
 		"p-limit": "^7.3.0",
 		"pretty-bytes": "^7.1.0",
 		"pretty-ms": "^9.3.0",
@@ -90,24 +90,24 @@
 	},
 	"devDependencies": {
 		"@farmfe/core": ">=1.7.11",
-		"@kitschpatrol/shared-config": "^7.5.2",
-		"@nuxt/kit": "^4.4.2",
-		"@nuxt/schema": "^4.4.2",
-		"@rspack/core": "^2.0.1",
+		"@kitschpatrol/shared-config": "^7.6.3",
+		"@nuxt/kit": "^4.4.6",
+		"@nuxt/schema": "^4.4.6",
+		"@rspack/core": "^2.0.5",
 		"@sxzz/test-utils": "^0.5.18",
-		"@vitest/browser-playwright": "^4.1.5",
-		"bumpp": "^11.0.1",
+		"@vitest/browser-playwright": "^4.1.7",
+		"bumpp": "^11.1.0",
 		"esbuild": "*",
-		"playwright": "^1.59.1",
-		"poptab": "^1.1.0",
-		"rolldown": "^1.0.0-rc.18",
-		"rollup": "^4.60.2",
+		"playwright": "^1.60.0",
+		"poptab": "^1.1.1",
+		"rolldown": "^1.0.3",
+		"rollup": "^4.60.4",
 		"shx": "^0.4.0",
-		"tsdown": "^0.21.10",
+		"tsdown": "^0.22.1",
 		"typescript": "~5.9.3",
-		"vite": "^7.3.2",
-		"vitest": "^4.1.5",
-		"webpack": "^5.106.2"
+		"vite": "^7.3.3",
+		"vitest": "^4.1.7",
+		"webpack": "^5.107.2"
 	},
 	"peerDependencies": {
 		"@farmfe/core": ">=1",
@@ -149,9 +149,9 @@
 			"optional": true
 		}
 	},
-	"packageManager": "pnpm@10.33.2",
+	"packageManager": "pnpm@11.5.0",
 	"engines": {
-		"node": ">=22.18.0"
+		"node": ">=22.22.2"
 	},
 	"publishConfig": {
 		"access": "public"

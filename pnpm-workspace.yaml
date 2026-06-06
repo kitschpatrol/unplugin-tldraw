@@ -2,11 +2,6 @@ packages:
   - '.'
   - playground
 ignoreWorkspaceRootCheck: true
-onlyBuiltDependencies:
-  - core-js
-  - esbuild
-  - puppeteer
-  - unrs-resolver
 publicHoistPattern:
   - '@kitschpatrol/repo-config'
   - '@kitschpatrol/typescript-config'
@@ -18,3 +13,10 @@ publicHoistPattern:
   - '*prettier*'
   - '*remark*'
   - '*stylelint*'
+allowBuilds:
+  core-js: true
+  esbuild: true
+  puppeteer: true
+  unrs-resolver: true
+minimumReleaseAgeExclude:
+  - '@kitschpatrol/*'
