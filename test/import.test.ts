@@ -7,5 +7,5 @@ it('converts tldr files to images on import', () => {
 	// The plugin resolves .tldr imports to generated image file paths
 	expect(tldrFile).toBeTypeOf('string')
 	expect(tldrFile).toContain('test-sketch-')
-	expect(tldrFile).toMatch(/\.svg/)
+	expect(tldrFile).toMatch(/\.svg/v)
 })

@@ -28,11 +28,13 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = (options) =
 
 				// Resolve relative paths against the importer's directory
 				const resolvedPath =
-					importer && (cleanId.startsWith('./') || cleanId.startsWith('../'))
+					importer !== undefined &&
+					importer !== '' &&
+					(cleanId.startsWith('./') || cleanId.startsWith('../'))
 						? path.resolve(path.dirname(importer), cleanId)
 						: cleanId
 
-				const overrides = queryString ? parseImportOverrides(queryString) : undefined
+				const overrides = queryString === '' ? undefined : parseImportOverrides(queryString)
 				return tldrawExport.convert(resolvedPath, overrides)
 			},
 		},

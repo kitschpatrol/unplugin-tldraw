@@ -103,54 +103,53 @@ export function parseImportOverrides(queryString: string): ImportOverrides {
 	const params = new URLSearchParams(queryString)
 	const overrides: ImportOverrides = {}
 
-	for (const [key, value] of params.entries()) {
-		// Skip namespace markers like `tldr` or `tldraw`
-		if (key === 'tldr' || key === 'tldraw') {
-			continue
-		}
-
-		switch (key) {
-			case 'dark':
-			case 'stripStyle':
-			case 'transparent': {
-				if (value === 'true' || value === '') {
-					overrides[key] = true
-				} else if (value === 'false') {
-					overrides[key] = false
-				} else {
-					log.warn(`Ignoring invalid value for "${key}": "${value}". Expected "true" or "false".`)
-				}
-
-				break
-			}
-
-			case 'format': {
-				// eslint-disable-next-line ts/no-unsafe-type-assertion -- validated by tldraw-cli at runtime
-				overrides.format = value as TldrawImageOptions['format']
-				break
-			}
-
-			case 'frame':
-			case 'page': {
-				overrides[key] = value
-				break
-			}
-
-			case 'padding':
-			case 'scale': {
-				const numberValue = Number(value)
-				if (!Number.isNaN(numberValue)) {
-					overrides[key] = numberValue
-				}
-
-				break
-			}
-
-			default: {
-				break
-			}
-		}
+	for (const [key, value] of params) {
+		applyOverride(overrides, key, value)
 	}
 
 	return overrides
+}
+
+function applyOverride(overrides: ImportOverrides, key: string, value: string): void {
+	switch (key) {
+		case 'dark':
+		case 'stripStyle':
+		case 'transparent': {
+			if (value === 'true' || value === '') {
+				overrides[key] = true
+			} else if (value === 'false') {
+				overrides[key] = false
+			} else {
+				log.warn(`Ignoring invalid value for "${key}": "${value}". Expected "true" or "false".`)
+			}
+
+			break
+		}
+
+		case 'format': {
+			overrides.format = value as TldrawImageOptions['format']
+			break
+		}
+
+		case 'frame':
+		case 'page': {
+			overrides[key] = value
+			break
+		}
+
+		case 'padding':
+		case 'scale': {
+			const numberValue = Number(value)
+			if (!Number.isNaN(numberValue)) {
+				overrides[key] = numberValue
+			}
+
+			break
+		}
+
+		default: {
+			// Ignore unknown keys and namespace markers like `tldr` or `tldraw`
+			break
+		}
+	}
 }

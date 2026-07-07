@@ -18,8 +18,8 @@ type PersistentCacheEntry = {
 type PersistentCache = Record<string, PersistentCacheEntry>
 
 const CACHE_FILE_NAME = '.tldraw-plugin-cache.json'
-const TLDR_EXTENSION_REGEX = /\.tldr(?:\?|$)/
-const CACHE_HASH_REGEX = /-([a-f\d]{8})\.[^.]+$/
+const TLDR_EXTENSION_REGEX = /\.tldr(?:\?|$)/v
+const CACHE_HASH_REGEX = /-([a-f\d]{8})\.[^.]+$/v
 
 export class TldrawExport {
 	/**
@@ -165,7 +165,7 @@ export class TldrawExport {
 		}
 
 		const cache: PersistentCache = {}
-		for (const [identifier, result] of this.resolvedCache.entries()) {
+		for (const [identifier, result] of this.resolvedCache) {
 			cache[this.toRelativeCacheKey(identifier)] = {
 				result: toPosixPath(path.relative(this.options.cacheDirectory, result)),
 			}
@@ -257,9 +257,9 @@ export class TldrawExport {
 
 		try {
 			const outputFiles = await tldrawToImage(absolutePath, tldrawCliOptions)
-			const outputFile = outputFiles[0]
+			const outputFile = outputFiles.at(0)
 
-			if (!outputFile) {
+			if (outputFile === undefined) {
 				throw new Error(`tldraw-cli produced no output for "${absolutePath}"`)
 			}
 
@@ -303,8 +303,8 @@ export class TldrawExport {
 
 		// Extract the hash from the cached filename: name-HASH.ext
 		const cachedBasename = path.basename(cachedResultPath)
-		const cachedHashMatch = CACHE_HASH_REGEX.exec(cachedBasename)
-		if (!cachedHashMatch?.[1]) {
+		const cachedHash = CACHE_HASH_REGEX.exec(cachedBasename)?.[1]
+		if (cachedHash === undefined) {
 			return false
 		}
 
@@ -320,13 +320,13 @@ export class TldrawExport {
 		}
 
 		const currentHash = await computeCacheKey(sourcePath, optionsForHash)
-		return currentHash === cachedHashMatch[1]
+		return currentHash === cachedHash
 	}
 
 	private async loadPersistentCache(): Promise<void> {
 		try {
 			const cacheContent = await fs.readFile(this.cacheFilePath, 'utf8')
-			// eslint-disable-next-line ts/no-unsafe-type-assertion -- JSON.parse returns unknown
+
 			const cache = JSON.parse(cacheContent) as PersistentCache
 
 			let validEntries = 0
@@ -411,6 +411,6 @@ async function fileExists(filePath: string): Promise<boolean> {
 function slugify(text: string): string {
 	return text
 		.toLowerCase()
-		.replaceAll(/[^\da-z]+/g, '-')
-		.replaceAll(/^-+|-+$/g, '')
+		.replaceAll(/[^\da-z]+/gv, '-')
+		.replaceAll(/^-+|-+$/gv, '')
 }

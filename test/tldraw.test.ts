@@ -28,13 +28,21 @@ function computeExpectedHash(content: string, options: Record<string, unknown>):
 }
 
 function getOutputDirectory(options: unknown): string {
-	// eslint-disable-next-line ts/no-unsafe-type-assertion -- mock test helper
 	return (options as Record<string, unknown>).output as string
 }
 
-const FRAME_FILENAME_REGEX = /^test-my-frame-[a-f\d]{8}\.svg$/
-const PAGE_FILENAME_REGEX = /^test-page-two-[a-f\d]{8}\.svg$/
-const FRAME_PAGE_FILENAME_REGEX = /^test-p1-f1-[a-f\d]{8}\.svg$/
+async function fileExists(filePath: string): Promise<boolean> {
+	try {
+		await fs.access(filePath)
+		return true
+	} catch {
+		return false
+	}
+}
+
+const FRAME_FILENAME_REGEX = /^test-my-frame-[a-f\d]{8}\.svg$/v
+const PAGE_FILENAME_REGEX = /^test-page-two-[a-f\d]{8}\.svg$/v
+const FRAME_PAGE_FILENAME_REGEX = /^test-p1-f1-[a-f\d]{8}\.svg$/v
 
 describe('TldrawExport', () => {
 	let tempDirectory: string
@@ -162,11 +170,7 @@ describe('TldrawExport', () => {
 			expect(mockedTldrawToImage).toHaveBeenCalledOnce()
 
 			// Verify the file was renamed to include the hash
-			const exists = await fs
-				.access(result)
-				.then(() => true)
-				.catch(() => false)
-			expect(exists).toBe(true)
+			expect(await fileExists(result)).toBe(true)
 		})
 
 		it('deduplicates concurrent requests for the same file', async () => {
@@ -477,11 +481,7 @@ describe('TldrawExport', () => {
 			await exporter.savePersistentCache()
 
 			const cacheFilePath = path.join(cacheDirectory, '.tldraw-plugin-cache.json')
-			const exists = await fs
-				.access(cacheFilePath)
-				.then(() => true)
-				.catch(() => false)
-			expect(exists).toBe(false)
+			expect(await fileExists(cacheFilePath)).toBe(false)
 		})
 
 		it('reuses cached results across separate instances via the persisted cache', async () => {
@@ -545,11 +545,7 @@ describe('TldrawExport', () => {
 			// Prune should remove the orphan
 			await exporter.pruneCache()
 
-			const orphanExists = await fs
-				.access(path.join(cacheDirectory, 'orphan.svg'))
-				.then(() => true)
-				.catch(() => false)
-			expect(orphanExists).toBe(false)
+			expect(await fileExists(path.join(cacheDirectory, 'orphan.svg'))).toBe(false)
 		})
 
 		it('does not remove files when pruneCacheOnBuild is false', async () => {
@@ -563,11 +559,7 @@ describe('TldrawExport', () => {
 
 			await exporter.pruneCache()
 
-			const orphanExists = await fs
-				.access(path.join(cacheDirectory, 'orphan.svg'))
-				.then(() => true)
-				.catch(() => false)
-			expect(orphanExists).toBe(true)
+			expect(await fileExists(path.join(cacheDirectory, 'orphan.svg'))).toBe(true)
 		})
 
 		it('never deletes the persistent cache file', async () => {
@@ -583,11 +575,7 @@ describe('TldrawExport', () => {
 
 			await exporter.pruneCache()
 
-			const exists = await fs
-				.access(cacheFilePath)
-				.then(() => true)
-				.catch(() => false)
-			expect(exists).toBe(true)
+			expect(await fileExists(cacheFilePath)).toBe(true)
 		})
 	})
 
