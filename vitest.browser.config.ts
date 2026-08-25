@@ -15,7 +15,7 @@ export default defineConfig({
 		},
 		env: {
 			// Backported to Node.js ^22.16.0
-			// eslint-disable-next-line ts/naming-convention, node/no-unsupported-features/node-builtins -- Vite env convention
+			// eslint-disable-next-line ts/naming-convention -- Vite env convention
 			PROJECT_ROOT: import.meta.dirname,
 		},
 		include: ['../../test/import.test.ts', '../../test/dynamic.test.ts'],

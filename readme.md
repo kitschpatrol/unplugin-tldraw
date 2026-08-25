@@ -6,8 +6,8 @@
 
 <!-- badges -->
 
-[![NPM Package @kitschpatrol/unplugin-tldraw](https://img.shields.io/npm/v/@kitschpatrol/unplugin-tldraw.svg)](https://npmjs.com/package/@kitschpatrol/unplugin-tldraw)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit/)
+[![NPM Package @kitschpatrol/unplugin-tldraw](https://img.shields.io/npm/v/@kitschpatrol/unplugin-tldraw.svg)](https://www.npmjs.com/package/@kitschpatrol/unplugin-tldraw)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit)
 [![CI](https://github.com/kitschpatrol/unplugin-tldraw/actions/workflows/ci.yml/badge.svg)](https://github.com/kitschpatrol/unplugin-tldraw/actions/workflows/ci.yml)
 
 <!-- /badges -->
@@ -210,10 +210,10 @@ Cannot find module './assets/test-sketch.tldr' or its corresponding type declara
 
 If you're using VS Code, an [extension](https://github.com/kitschpatrol/vscode-tldraw-preview) is available to provide hover-previews for tldr file paths:
 
-Install the extension from the [Marketplace](https://marketplace.visualstudio.com/items?itemName=kitschpatrol.tldr-preview), or run the following in VS Code's command palette:
+Install the extension from the [Marketplace](https://marketplace.visualstudio.com/items?itemName=kitschpatrol.tldraw-preview), or run the following in VS Code's command palette:
 
 ```sh
-ext install kitschpatrol.tldr-preview
+ext install kitschpatrol.tldraw-preview
 ```
 
 ## Usage

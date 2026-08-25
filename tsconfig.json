@@ -1,10 +1,8 @@
 {
 	"extends": "@kitschpatrol/typescript-config",
 	"compilerOptions": {
-		"types": ["./src/client.d.ts"]
+		"types": ["node", "./src/client.d.ts"]
 	},
-
-	// Includes project dot-files files for typescript-eslint integration
-	"include": ["**/*", "**/**.*"],
-	"exclude": ["**/dist/", "**/bin/"]
+	"include": ["**/**.*"],
+	"exclude": ["dist/"]
 }

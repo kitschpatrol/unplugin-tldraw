@@ -8,13 +8,13 @@
 		"dev": "nodemon -w '../src/**/*.ts' -e .ts -x vite"
 	},
 	"devDependencies": {
-		"@types/node": "~22.19.19",
+		"@types/node": "~24.13.3",
 		"nodemon": "^3.1.14",
-		"vite": "^8.1.0",
-		"vite-plugin-inspect": "^11.4.1",
-		"vite-plugin-mkcert": "^1.17.12"
+		"vite": "^8.2.2",
+		"vite-plugin-inspect": "^12.0.2",
+		"vite-plugin-mkcert": "^2.1.0"
 	},
 	"engines": {
-		"node": ">=22.18.0"
+		"node": ">=24.16.0"
 	}
 }

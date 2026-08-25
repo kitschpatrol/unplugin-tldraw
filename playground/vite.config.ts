@@ -3,8 +3,6 @@ import Inspect from 'vite-plugin-inspect'
 import Mkcert from 'vite-plugin-mkcert'
 import Tldraw from '../src/vite'
 
-process.env.BROWSER = 'chromium'
-
 export default defineConfig({
 	plugins: [
 		Mkcert(),
