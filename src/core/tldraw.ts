@@ -145,14 +145,12 @@ export class TldrawExport {
 		)
 
 		for (const destinationFile of destinationFiles) {
-			if (destinationFile === CACHE_FILE_NAME) {
+			if (destinationFile === CACHE_FILE_NAME || fileNamesToKeep.has(destinationFile)) {
 				continue
 			}
 
-			if (!fileNamesToKeep.has(destinationFile)) {
-				log.debug(`Cleaning up unused image: ${destinationFile}`)
-				await fs.rm(path.join(this.options.cacheDirectory, destinationFile))
-			}
+			log.debug(`Cleaning up unused image: ${destinationFile}`)
+			await fs.rm(path.join(this.options.cacheDirectory, destinationFile))
 		}
 	}
 

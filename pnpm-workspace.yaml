@@ -1,7 +1,37 @@
 packages:
   - '.'
   - playground
+allowBuilds:
+  core-js: true
+  esbuild: true
+  puppeteer: true
+  unrs-resolver: true
 ignoreWorkspaceRootCheck: true
+minimumReleaseAgeExclude:
+  - '@eslint-react/ast@5.24.5'
+  - '@eslint-react/core@5.24.5'
+  - '@eslint-react/eslint-plugin@5.24.5'
+  - '@eslint-react/eslint@5.24.5'
+  - '@eslint-react/jsx@5.24.5'
+  - '@eslint-react/shared@5.24.5'
+  - '@eslint-react/var@5.24.5'
+  - '@kitschpatrol/cspell-config@8.12.1'
+  - '@kitschpatrol/eslint-config@8.12.1'
+  - '@kitschpatrol/knip-config@8.12.1'
+  - '@kitschpatrol/mdat-config@8.12.1'
+  - '@kitschpatrol/prettier-config@8.12.1'
+  - '@kitschpatrol/remark-config@8.12.1'
+  - '@kitschpatrol/repo-config@8.12.1'
+  - '@kitschpatrol/shared-config@8.12.1'
+  - '@kitschpatrol/stylelint-config@8.12.1'
+  - '@kitschpatrol/tldraw-cli@6.1.0'
+  - '@kitschpatrol/typescript-config@8.12.1'
+  - eslint-plugin-react-dom@5.24.5
+  - eslint-plugin-react-jsx@5.24.5
+  - eslint-plugin-react-naming-convention@5.24.5
+  - eslint-plugin-react-rsc@5.24.5
+  - eslint-plugin-react-web-api@5.24.5
+  - eslint-plugin-react-x@5.24.5
 publicHoistPattern:
   - '@kitschpatrol/repo-config'
   - '@kitschpatrol/typescript-config'
@@ -13,37 +43,3 @@ publicHoistPattern:
   - '*prettier*'
   - '*remark*'
   - '*stylelint*'
-allowBuilds:
-  core-js: true
-  esbuild: true
-  puppeteer: true
-  unrs-resolver: true
-minimumReleaseAgeExclude:
-  - '@kitschpatrol/*'
-  - vite
-  - '@rollup/rollup-android-arm-eabi@4.63.0'
-  - '@rollup/rollup-android-arm64@4.63.0'
-  - '@rollup/rollup-darwin-arm64@4.63.0'
-  - '@rollup/rollup-darwin-x64@4.63.0'
-  - '@rollup/rollup-freebsd-arm64@4.63.0'
-  - '@rollup/rollup-freebsd-x64@4.63.0'
-  - '@rollup/rollup-linux-arm-gnueabihf@4.63.0'
-  - '@rollup/rollup-linux-arm-musleabihf@4.63.0'
-  - '@rollup/rollup-linux-arm64-gnu@4.63.0'
-  - '@rollup/rollup-linux-arm64-musl@4.63.0'
-  - '@rollup/rollup-linux-loong64-gnu@4.63.0'
-  - '@rollup/rollup-linux-loong64-musl@4.63.0'
-  - '@rollup/rollup-linux-ppc64-gnu@4.63.0'
-  - '@rollup/rollup-linux-ppc64-musl@4.63.0'
-  - '@rollup/rollup-linux-riscv64-gnu@4.63.0'
-  - '@rollup/rollup-linux-riscv64-musl@4.63.0'
-  - '@rollup/rollup-linux-s390x-gnu@4.63.0'
-  - '@rollup/rollup-linux-x64-gnu@4.63.0'
-  - '@rollup/rollup-linux-x64-musl@4.63.0'
-  - '@rollup/rollup-openbsd-x64@4.63.0'
-  - '@rollup/rollup-openharmony-arm64@4.63.0'
-  - '@rollup/rollup-win32-arm64-msvc@4.63.0'
-  - '@rollup/rollup-win32-ia32-msvc@4.63.0'
-  - '@rollup/rollup-win32-x64-gnu@4.63.0'
-  - '@rollup/rollup-win32-x64-msvc@4.63.0'
-  - rollup@4.63.0

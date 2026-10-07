@@ -69,45 +69,46 @@
 	],
 	"scripts": {
 		"build": "tsdown",
-		"clean": "shx rm -f pnpm-lock.yaml && git clean -fdX -e !.claude/",
+		"clean-deep": "shx rm -f pnpm-lock.yaml && git clean -fdX -e !.claude/",
 		"dev": "tsdown --watch",
 		"fix": "ksc fix",
 		"lint": "ksc lint",
 		"play": "poptab && pnpm -C playground run dev",
+		"prepare": "skills experimental_sync -y -f",
 		"release": "bumpp --commit 'Release: %s' && pnpm build && pnpm publish --otp $(op item get npm --otp)",
 		"test": "vitest run",
 		"test:browser": "vitest run --config vitest.browser.config.ts"
 	},
 	"dependencies": {
-		"@kitschpatrol/tldraw-cli": "^6.0.3",
+		"@kitschpatrol/tldraw-cli": "^6.1.0",
 		"@types/node": "~24.13.3",
 		"defu": "^6.1.7",
-		"lognow": "^0.8.0",
-		"p-limit": "^7.3.1",
-		"pretty-bytes": "^7.1.1",
-		"pretty-ms": "^9.3.0",
-		"unplugin": "^3.3.0"
+		"lognow": "^0.8.4",
+		"p-limit": "^7.3.3",
+		"pretty-bytes": "^7.2.0",
+		"pretty-ms": "^9.3.1",
+		"unplugin": "^3.4.0"
 	},
 	"devDependencies": {
 		"@farmfe/core": ">=1.7.11",
-		"@kitschpatrol/shared-config": "^8.6.0",
-		"@nuxt/kit": "^4.5.2",
-		"@nuxt/schema": "^4.5.2",
-		"@rspack/core": "^2.1.10",
-		"@sxzz/test-utils": "^0.5.18",
-		"@vitest/browser-playwright": "^4.1.11",
-		"bumpp": "^12.2.1",
+		"@kitschpatrol/shared-config": "^8.12.1",
+		"@nuxt/kit": "^4.6.0",
+		"@nuxt/schema": "^4.6.0",
+		"@rspack/core": "^2.2.8",
+		"@vitest/browser-playwright": "^5.0.3",
+		"bumpp": "^12.3.0",
 		"esbuild": "*",
-		"playwright": "^1.62.1",
-		"poptab": "^1.1.2",
-		"rolldown": "^1.2.5",
-		"rollup": "^4.63.0",
+		"playwright": "^1.63.0",
+		"poptab": "^1.2.1",
+		"rolldown": "^1.2.12",
+		"rollup": "^4.64.0",
 		"shx": "^0.4.0",
-		"tsdown": "^0.22.14",
+		"skills": "^1.7.0",
+		"tsdown": "^0.23.0",
 		"typescript": "~6.0.3",
-		"vite": "^8.2.2",
-		"vitest": "^4.1.11",
-		"webpack": "^5.109.2"
+		"vite": "^8.3.2",
+		"vitest": "^5.0.3",
+		"webpack": "^5.111.1"
 	},
 	"peerDependencies": {
 		"@farmfe/core": ">=1",
@@ -149,9 +150,9 @@
 			"optional": true
 		}
 	},
-	"packageManager": "pnpm@11.22.0",
+	"packageManager": "pnpm@12.9.1",
 	"engines": {
-		"node": ">=24.16.0"
+		"node": "^24.16.0 || >=26.3.0"
 	},
 	"publishConfig": {
 		"access": "public"

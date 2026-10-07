@@ -7,16 +7,9 @@ export default eslintConfig(
 				'html/no-inline-styles': 'off',
 			},
 		},
-		ignores: ['/test/assets/**'],
-		js: {
-			overrides: {
-				'new-cap': 'off',
-			},
-		},
 		ts: {
 			overrides: {
 				'new-cap': 'off',
-				'ts/consistent-type-definitions': 'off',
 			},
 		},
 		type: 'lib',
@@ -25,8 +18,13 @@ export default eslintConfig(
 		files: ['playground/package.json'],
 		rules: {
 			'json-package/require-author': 'off',
-			'json-package/require-keywords': 'off',
-			'json-package/require-version': 'off',
+		},
+	},
+	{
+		// Bundler entry points default-export the result of unplugin's pure plugin factories, which do no work at import time
+		files: ['src/{esbuild,farm,nuxt,rolldown,rollup,rspack,vite,webpack}.ts'],
+		rules: {
+			'unicorn/no-top-level-side-effects': 'off',
 		},
 	},
 	{
@@ -34,7 +32,6 @@ export default eslintConfig(
 		rules: {
 			'capitalized-comments': 'off',
 			'import/no-unresolved': 'off',
-			'ts/no-redeclare': 'off',
 			'ts/triple-slash-reference': 'off',
 		},
 	},
