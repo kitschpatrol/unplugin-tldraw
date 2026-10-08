@@ -37,7 +37,7 @@ jobs:
 
       - name: Release
         id: release
-        uses: kitschpatrol/github-action-release@8eec249579033fc4c9f18f9a7acf3beed6c84882 # v2
+        uses: kitschpatrol/github-action-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2.6.1
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN || secrets.GITHUB_TOKEN }}
           draft: false
