@@ -81,9 +81,9 @@
 	},
 	"dependencies": {
 		"@kitschpatrol/tldraw-cli": "^6.1.0",
-		"@types/node": "~24.13.3",
+		"@types/node": "~24.13.6",
 		"defu": "^6.1.7",
-		"lognow": "^0.8.4",
+		"lognow": "^0.8.5",
 		"p-limit": "^7.3.3",
 		"pretty-bytes": "^7.2.0",
 		"pretty-ms": "^9.3.1",
@@ -150,7 +150,7 @@
 			"optional": true
 		}
 	},
-	"packageManager": "pnpm@12.9.1",
+	"packageManager": "pnpm@12.11.2",
 	"engines": {
 		"node": "^24.16.0 || >=26.3.0"
 	},
