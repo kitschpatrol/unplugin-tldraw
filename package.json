@@ -69,12 +69,11 @@
 	],
 	"scripts": {
 		"build": "tsdown",
-		"clean-deep": "shx rm -f pnpm-lock.yaml && git clean -fdX -e !.claude/",
+		"clean-deep": "shx rm -f pnpm-lock.yaml && git clean -fdX",
 		"dev": "tsdown --watch",
 		"fix": "ksc fix",
 		"lint": "ksc lint",
 		"play": "poptab && pnpm -C playground run dev",
-		"prepare": "skills experimental_sync -y -f",
 		"release": "bumpp --commit 'Release: %s' && pnpm build && pnpm publish --otp $(op item get npm --otp)",
 		"test": "vitest run",
 		"test:browser": "vitest run --config vitest.browser.config.ts"
@@ -91,7 +90,7 @@
 	},
 	"devDependencies": {
 		"@farmfe/core": ">=1.7.11",
-		"@kitschpatrol/shared-config": "^8.13.1",
+		"@kitschpatrol/shared-config": "^8.14.0",
 		"@nuxt/kit": "^4.6.0",
 		"@nuxt/schema": "^4.6.0",
 		"@rspack/core": "^2.2.8",
@@ -103,7 +102,6 @@
 		"rolldown": "^1.2.12",
 		"rollup": "^4.64.0",
 		"shx": "^0.4.0",
-		"skills": "^1.7.0",
 		"tsdown": "^0.23.0",
 		"typescript": "~6.0.3",
 		"vite": "^8.3.2",
@@ -150,7 +148,7 @@
 			"optional": true
 		}
 	},
-	"packageManager": "pnpm@12.11.2",
+	"packageManager": "pnpm@12.15.0",
 	"engines": {
 		"node": "^24.16.0 || >=26.3.0"
 	},
