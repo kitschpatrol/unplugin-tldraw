@@ -82,31 +82,31 @@
 		"@kitschpatrol/tldraw-cli": "^6.1.0",
 		"@types/node": "~24.13.6",
 		"defu": "^6.1.7",
-		"lognow": "^0.8.5",
+		"lognow": "^0.8.7",
 		"p-limit": "^7.3.3",
 		"pretty-bytes": "^7.2.0",
-		"pretty-ms": "^9.3.1",
-		"unplugin": "^3.4.0"
+		"pretty-ms": "^10.0.0",
+		"unplugin": "^3.7.0"
 	},
 	"devDependencies": {
 		"@farmfe/core": ">=1.7.11",
 		"@kitschpatrol/shared-config": "^8.14.0",
-		"@nuxt/kit": "^4.6.0",
-		"@nuxt/schema": "^4.6.0",
-		"@rspack/core": "^2.2.8",
-		"@vitest/browser-playwright": "^5.0.3",
+		"@nuxt/kit": "^4.6.3",
+		"@nuxt/schema": "^4.6.3",
+		"@rspack/core": "^2.3.0",
+		"@vitest/browser-playwright": "^5.0.5",
 		"bumpp": "^12.3.0",
 		"esbuild": "*",
-		"playwright": "^1.63.0",
-		"poptab": "^1.2.1",
-		"rolldown": "^1.2.12",
-		"rollup": "^4.64.0",
+		"playwright": "^1.64.1",
+		"poptab": "^1.2.2",
+		"rolldown": "^1.2.16",
+		"rollup": "^4.67.2",
 		"shx": "^0.4.0",
-		"tsdown": "^0.23.0",
+		"tsdown": "^0.23.4",
 		"typescript": "~6.0.3",
-		"vite": "^8.3.2",
-		"vitest": "^5.0.3",
-		"webpack": "^5.111.1"
+		"vite": "^8.3.5",
+		"vitest": "^5.0.5",
+		"webpack": "^5.112.2"
 	},
 	"peerDependencies": {
 		"@farmfe/core": ">=1",
@@ -148,7 +148,7 @@
 			"optional": true
 		}
 	},
-	"packageManager": "pnpm@12.15.0",
+	"packageManager": "pnpm@12.16.1",
 	"engines": {
 		"node": "^24.16.0 || >=26.3.0"
 	},
