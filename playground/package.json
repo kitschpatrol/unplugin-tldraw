@@ -10,8 +10,8 @@
 	"devDependencies": {
 		"@types/node": "~24.13.6",
 		"nodemon": "^3.1.14",
-		"vite": "^8.3.2",
-		"vite-plugin-inspect": "^12.0.2",
+		"vite": "^8.3.5",
+		"vite-plugin-inspect": "^12.1.0",
 		"vite-plugin-mkcert": "^2.1.0"
 	},
 	"engines": {
