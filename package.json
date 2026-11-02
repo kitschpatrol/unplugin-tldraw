@@ -79,7 +79,7 @@
 		"test:browser": "vitest run --config vitest.browser.config.ts"
 	},
 	"dependencies": {
-		"@kitschpatrol/tldraw-cli": "^6.1.0",
+		"@kitschpatrol/tldraw-cli": "^6.1.1",
 		"@types/node": "~24.13.6",
 		"defu": "^6.1.7",
 		"lognow": "^0.8.7",
