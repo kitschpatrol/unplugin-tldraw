@@ -74,7 +74,7 @@
 		"fix": "ksc fix",
 		"lint": "ksc lint",
 		"play": "poptab && pnpm -C playground run dev",
-		"release": "bumpp --commit 'Release: %s' && pnpm build && pnpm publish --otp $(op item get npm --otp)",
+		"release": "bumpp --commit 'Release: %s' --all --execute 'chagent --root-changelog package --skip-package playground' && pnpm build && pnpm publish --otp $(op item get npm --otp)",
 		"test": "vitest run",
 		"test:browser": "vitest run --config vitest.browser.config.ts"
 	},
@@ -90,6 +90,7 @@
 	},
 	"devDependencies": {
 		"@farmfe/core": ">=1.7.11",
+		"@kitschpatrol/chagent": "0.4.0",
 		"@kitschpatrol/shared-config": "^8.14.0",
 		"@nuxt/kit": "^4.6.3",
 		"@nuxt/schema": "^4.6.3",

@@ -7,6 +7,7 @@ export default eslintConfig(
 				'html/no-inline-styles': 'off',
 			},
 		},
+		ignores: ['**/changelog.md'],
 		ts: {
 			overrides: {
 				'new-cap': 'off',

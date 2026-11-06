@@ -5,6 +5,7 @@ allowBuilds:
   unrs-resolver: true
 ignoreWorkspaceRootCheck: true
 minimumReleaseAgeExclude:
+  - '@kitschpatrol/chagent@0.4.0'
   - '@kitschpatrol/tldraw-cli@6.1.1'
 packages:
   - '.'
